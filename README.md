@@ -1,7 +1,7 @@
-# HAcore_QNAP
+# HA22
  Home Assistant configuration files for QNAP
-# Home Assistant configuration - HAQNAP by svkowalski:
-## This is what I produced after about a year and a half of tinkering...</h4>
+# Home Assistant configuration - HA22 by svkowalski:
+## This is what I produced after about 3 years of tinkering...</h4>
 
 #### The system consists of:
 * Hardware
@@ -57,9 +57,3 @@ I found these YouTube channels and websites to be helpful in getting me pointed 
 * [SmartHomeBeginner](www.smarthomebeginner.com/configure-google-assistant-for-home-assistant/)
 * [BRUH3-Home-Assistant-Configuration](https://github.com/bruhautomation/BRUH3-Home-Assistant-Configuration)
 * [JuanM: juanmtech.com](https://www.youtube.com/channel/UCR7Xa7cU9wfkSY9v3yN2Vtw) has some really helpful videos to get started with Lovelace
-#### TBD:
-* ~~Fix some nagging incorrect behaviors that occur when directing Onkyo AV receiver to play music~~ (fixed?)
-*   Add option for selecting Zone 2 Cast input
-*   Open/Close garage door using MYQ
-* ~~Get SSL & DnDNS working. Got it working on Hasspian, got tangled up in Docker issues on QNAP.~~ Set aside for now. May try new remote access through Nabu Casa
-* Improve light behavior to turn on when the weather is cloudy. (someday)
