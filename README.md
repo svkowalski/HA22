@@ -14,7 +14,6 @@
     * [Sony BDP-S5200 Blu-ray Disk DVD Player](https://www.sony.com/electronics/support/home-video-blu-ray-disc-players-recorders/bdp-s5200)
     * [Google Chromecast/Chrome Audio:](https://support.google.com/chromecast/?hl=en) Casts Youtube videos to Family room HDTV...
   * [TP-Link:](https://www.tp-link.com/us/home-networking/smart-home/smart-switches) several smart plugs, switches, bulbs...
-  * ~~[Wink hub](http://status.winkapp.com) control z-wave devices, including Philips and GE switches~~
   * Lights are controlled by Philips Hue hub, MQTT controls Sonoff switches with Tasmota firmware, Z-wave and TP-Link via Wifi:
     * [Philips Hue bulbs, motion/temperature/light sensor, control buttons & hub](https://www2.meethue.com/en-us) several bulbs in Office, Family room and Kitchen
     * [TorchStar Led Strip Light IP65](https://www.torchstar.us/16-4ft-led-strip-light-compatible-with-alexa-wifi-wireless-smart-phone-app-flexible-warm-white-36w-lighting-kit-ip65-waterproof-ul-listed-12v-power-supply-in-party-kitchen.html) using SmartLife/Tuya integration
