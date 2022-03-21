@@ -2,7 +2,6 @@ views:
   - title: Google
     icon: mdi:google
     path: google_tv
-    badges: []
     cards:
       - type: vertical-stack
         cards:
