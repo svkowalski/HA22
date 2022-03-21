@@ -1,0 +1,50 @@
+#################################################################
+#                                                               #
+#                        INPUT BOOLEANS                         #
+#                                                               #
+#################################################################
+  onkyo:
+    initial: off
+    icon: hass:toggle-switch
+
+  zone_2:
+    initial: off
+    icon: hass:alpha-z-circle-outline
+
+  moode:
+    initial: off
+    icon: hass:toggle-switch
+
+  moode_muted:
+    initial: off
+    icon: hass:volume-mute
+
+  tradfri_remote:
+    initial: off
+    icon: hass:radiobox-marked
+
+# Note: this boolean is controlled by the switch.aiwa_power template
+  aiwa:
+    initial: off
+    icon: hass:toggle-switch
+
+# Note: this boolean is controlled by the switch.aiwa_mute template
+  aiwa_muted:
+    initial: off
+    icon: hass:volume-mute
+
+  overcast:
+    initial: off
+    icon: hass:weather-cloudy-alert
+
+  dryer:
+    initial: off
+    icon: hass:tumble-dryer
+
+  washing_machine:
+    initial: off
+    icon: hass:washing-machine
+
+  kasa_camera_enabled:
+    initial: on
+    icon: hass:camera-iris

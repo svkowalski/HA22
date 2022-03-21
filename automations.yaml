@@ -1,0 +1,994 @@
+- id: turn_on_just_before_dawn
+  alias: 'Lights: turn on just before dawn'
+  description: Turn on Kitchen cabinet LEDs & Bathroom just before dawn
+  trigger:
+  - event: sunrise
+    offset: -00:30:00
+    platform: sun
+  action:
+  - type: turn_on
+    device_id: ce36b789a54a30d2937363e51c16a957
+    entity_id: light.master_bathroom
+    domain: light
+    brightness_pct: 100
+  - type: turn_on
+    device_id: d5d717f4091e5a7635474d6ae5b0bf49
+    entity_id: light.kitchen_counter_leds
+    domain: light
+  - type: turn_on
+    device_id: 0c1d78f5b1564fcb207238bd3c6f1085
+    entity_id: light.kitchen_cabinet_leds_2ya
+    domain: light
+  mode: single
+  max: 10
+- id: kitchen_cabinet_led_candles_colorful_just_before_dusk
+  alias: 'Colorful, foyer & candles: turn on just before dusk'
+  description: Turn on Colorful, foyer & candles just before dusk
+  trigger:
+  - event: sunset
+    offset: -00:15:00
+    platform: sun
+  action:
+  - type: turn_on
+    device_id: a9fa39d4a4dd3b9689636a55f80b887d
+    entity_id: light.office_floor_lamp_colorful
+    domain: light
+  - service: light.turn_on
+    data: {}
+    target:
+      entity_id:
+      - light.bookcase_candles
+  - type: turn_on
+    device_id: 2e3e1f3cd69c730c1c2c4e660bc151c3
+    entity_id: light.foyer_lamp
+    domain: light
+  initial_state: 'true'
+  mode: single
+  max: 10
+- id: porch_pyle_turn_off_before_bedtime
+  alias: 'Porch Pyle: turn off before bed time'
+  description: Make sure Porch music is turned off at bedtime
+  trigger:
+  - at: '21:30:00'
+    platform: time
+  action:
+  - type: turn_off
+    device_id: 1e9964c52dce3febfb4a57697aa46250
+    entity_id: switch.porch_pyle
+    domain: switch
+  mode: single
+  initial_state: 'true'
+- id: family_room_fan_turn_on_just_before_dawn_seasonal
+  alias: 'Family room ceiling fan: turn on just before dawn (seasonal)'
+  description: Figure out a way to only turn the fan on at certain times of the year
+  trigger:
+  - platform: sun
+    event: sunrise
+  condition: []
+  action:
+  - device_id: e2c2b87a902f6d5d2667fe3c8b9f66cc
+    domain: fan
+    entity_id: fan.family_room_control_level
+    type: turn_on
+  - device_id: e2c2b87a902f6d5d2667fe3c8b9f66cc
+    domain: number
+    entity_id: number.family_room_control_level_4
+    type: set_value
+    value: 1
+  mode: single
+- id: family_room_fan_turn_off_around_midnight
+  alias: 'Family room ceiling fan: turn off around midnight'
+  description: Turn the fan off around midnight
+  trigger:
+  - platform: time
+    at: 00:15:00
+  condition: []
+  action:
+  - device_id: e2c2b87a902f6d5d2667fe3c8b9f66cc
+    domain: fan
+    entity_id: fan.family_room_control_level
+    type: turn_off
+  mode: single
+- id: bathroom_turn_off_am
+  alias: 'Bathroom light: turn off after sunrise'
+  description: Turn off Bathroom light after sunrise
+  trigger:
+  - event: sunrise
+    offset: 01:00:00
+    platform: sun
+  action:
+  - service: light.turn_on
+    data:
+      transition: 0
+      brightness: 1
+    target:
+      entity_id: light.master_bathroom
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 3
+      milliseconds: 0
+  - type: turn_off
+    device_id: ce36b789a54a30d2937363e51c16a957
+    entity_id: light.master_bathroom
+    domain: light
+  mode: single
+- id: adaptive_lighting_sleep_mode_off
+  alias: 'Adaptive lighting: turn off sleep mode at sunrise'
+  description: Reset adaptive lighting at dawn
+  trigger:
+  - event: sunrise
+    platform: sun
+  action:
+  - service: switch.turn_off
+    target:
+      entity_id: switch.adaptive_sleep_mode_temp
+  mode: single
+- id: kitchen_cabinet_led_lights_turn_off_am
+  alias: 'Kitchen cabinet, counter LEDs, & Sink light: turn off when sunny at 9:30
+    AM'
+  description: Turn off Kitchen cabinet strip LEDs, counter LEDs & Sink light at 9:30
+    AM when it is sunny
+  trigger:
+  - platform: time
+    at: 09:30:00
+  condition:
+  - type: is_illuminance
+    condition: device
+    device_id: a4f3daea3a6da5e38e809a26acfba76c
+    entity_id: sensor.wall_panel_light_sensor
+    domain: sensor
+    above: 20
+  action:
+  - type: turn_off
+    device_id: d5d717f4091e5a7635474d6ae5b0bf49
+    entity_id: light.kitchen_counter_leds
+    domain: light
+  - type: turn_off
+    device_id: 0c1d78f5b1564fcb207238bd3c6f1085
+    entity_id: light.kitchen_cabinet_leds_2ya
+    domain: light
+  - type: turn_off
+    device_id: 92543275b71130ae4b9c345b06f87efc
+    entity_id: light.kitchen_sink
+    domain: light
+  mode: single
+- id: around_sunset
+  alias: 'Lights: turn on around sunset'
+  description: Turn on lights in house around sunset; note Adaptive lighting is not
+    changed
+  trigger:
+  - event: sunset
+    offset: -00:30:00
+    platform: sun
+  action:
+  - service: input_boolean.turn_off
+    entity_id: input_boolean.overcast
+  - type: turn_on
+    device_id: ce36b789a54a30d2937363e51c16a957
+    entity_id: light.master_bathroom
+    domain: light
+  - type: turn_on
+    device_id: 6f0b67f877e7c3da0c8881aecaf33eed
+    entity_id: light.master_bedroom
+    domain: light
+  - type: turn_on
+    device_id: d5d717f4091e5a7635474d6ae5b0bf49
+    entity_id: light.kitchen_counter_leds
+    domain: light
+  - type: turn_on
+    device_id: 0c1d78f5b1564fcb207238bd3c6f1085
+    entity_id: light.kitchen_cabinet_leds_2ya
+    domain: light
+  - service: light.turn_on
+    data: {}
+    target:
+      entity_id:
+      - light.family_room_table_lamps
+      - light.bay_window_dresser_lamp
+      - light.bookcase_candles
+      device_id:
+      - a9fa39d4a4dd3b9689636a55f80b887d
+      - 2e3e1f3cd69c730c1c2c4e660bc151c3
+  initial_state: 'true'
+  mode: queued
+  max: 10
+- id: dim_bathroom_light
+  alias: 'Adaptive lighting: set Bathroom light low around midnight'
+  description: Set Bathroom light low after bedtime using adaptive sleep mode
+  trigger:
+  - platform: time
+    at: '23:10:00'
+  action:
+  - service: switch.turn_on
+    target:
+      entity_id: switch.adaptive_sleep_mode_temp
+  mode: single
+- id: turn_off_kitchen_cabinet_leds_when_idle
+  alias: 'Kitchen counter LEDs: turn off after 18 min when idle'
+  description: Turn off Kitchen counter LEDs after 18 min no activity
+  trigger:
+  - type: no_motion
+    platform: device
+    device_id: c06779630f510b6a9e73e6416db10f9a
+    entity_id: binary_sensor.kitchen_sensor_motion
+    domain: binary_sensor
+    for:
+      hours: 0
+      minutes: 18
+      seconds: 0
+      milliseconds: 0
+  condition:
+  - condition: time
+    after: 09:30:00
+    before: 07:00:00
+  action:
+  - type: turn_off
+    device_id: d5d717f4091e5a7635474d6ae5b0bf49
+    entity_id: light.kitchen_counter_leds
+    domain: light
+  mode: single
+- id: turn_off_lights_after_midnight
+  alias: 'Lights: turn off after midnight'
+  description: Turn off all the lights just after midnight
+  trigger:
+  - at: 00:15:00
+    platform: time
+  action:
+  - entity_id:
+    - light.bookcase_candles
+    - light.bookcase_light_group
+    - light.foyer_lamp
+    - light.bay_window_dresser_lamp
+    - light.family_room_table_lamps
+    - light.family_room_ceiling
+    - light.dining_room_dimmer
+    - light.master_bedroom
+    - light.office_floor_lamp_colorful
+    - light.office_reading
+    - light.laura_desk_lamp
+    - light.steve_desk_lamp
+    - light.kitchen_counter_leds
+    - light.kitchen_cabinet_leds_2ya
+    - light.kitchen_sink
+    - light.kitchen_ceiling_lights_group
+    - light.kitchen_table_dimmer
+    - light.porch_ceiling_fan
+    - light.back_door
+    service: light.turn_off
+  mode: single
+- id: turn_on_bookcase_lights_at_sunset_while_watching_tv
+  alias: 'Bookcase lights: turn on at sunset while watching TV'
+  trigger:
+  - platform: sun
+    event: sunset
+    offset: -00:20:00
+  condition:
+  - condition: state
+    state: 'on'
+    entity_id: media_player.vizio
+  action:
+  - service: light.turn_on
+    data: {}
+    target:
+      entity_id: light.bookcase_light_group
+  - service: light.turn_on
+    data:
+      brightness_pct: 33
+    target:
+      entity_id: light.bay_window_dresser_lamp
+  - type: turn_off
+    device_id: c50848ec03dba3ca00f332b10c4f2055
+    entity_id: light.family_room_ceiling
+    domain: light
+  - type: turn_off
+    device_id: 92543275b71130ae4b9c345b06f87efc
+    entity_id: light.kitchen_sink
+    domain: light
+  initial_state: 'true'
+  mode: restart
+- id: turn_on_bookcase_lights_for_tv_at_dusk
+  alias: 'Bookcase lights: turn on for TV at dusk'
+  description: This is to cover the situation when media is turned on after sunset
+  trigger:
+  - entity_id: switch.smartcast_tv
+    platform: state
+    to: 'on'
+    from: 'off'
+  - platform: state
+    entity_id: switch.google_tv
+    from: 'off'
+    to: 'on'
+  - platform: state
+    entity_id: switch.watch_dvd
+    from: 'off'
+    to: 'on'
+  - platform: state
+    entity_id: switch.broadcast_tv
+    from: 'off'
+    to: 'on'
+  condition:
+  - condition: sun
+    after: sunset
+  action:
+  - service: light.turn_on
+    data:
+      color_temp: 400
+      brightness_pct: 33
+    target:
+      entity_id: light.bookcase_light_group
+  - type: turn_off
+    device_id: 92543275b71130ae4b9c345b06f87efc
+    entity_id: light.kitchen_sink
+    domain: light
+  - service: light.turn_off
+    target:
+      entity_id: light.family_room_ceiling
+  initial_state: 'true'
+  mode: restart
+- id: turn_on_kitchen_cabinet_lights_in_kitchen
+  alias: 'Kitchen counter LEDs: turn on when dark or cloudy and motion is detected'
+  description: Turn on Kitchen counter LEDs when dark & motion is detected; turn off
+    after 18 minutes of inactivity
+  trigger:
+  - entity_id: binary_sensor.kitchen_sensor_motion
+    platform: state
+    to: 'on'
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 0
+  condition:
+  - type: is_illuminance
+    condition: device
+    device_id: a4f3daea3a6da5e38e809a26acfba76c
+    entity_id: sensor.wall_panel_light_sensor
+    domain: sensor
+    below: 30
+  - condition: state
+    entity_id: light.kitchen_counter_leds
+    state: 'off'
+  action:
+  - type: turn_on
+    device_id: d5d717f4091e5a7635474d6ae5b0bf49
+    entity_id: light.kitchen_counter_leds
+    domain: light
+  - delay:
+      hours: 0
+      minutes: 18
+      seconds: 0
+      milliseconds: 0
+  - type: turn_off
+    device_id: d5d717f4091e5a7635474d6ae5b0bf49
+    entity_id: light.kitchen_counter_leds
+    domain: light
+  mode: restart
+- id: turn_lights_on_when_overcast
+  alias: 'Lights: turn on when cloudy (lx)'
+  description: Turn on lights in Kitchen and Family room when overcast
+  trigger:
+  - platform: numeric_state
+    for:
+      hours: 0
+      minutes: 20
+      seconds: 0
+      milliseconds: 0
+    below: '12'
+    entity_id: sensor.wall_panel_light_sensor
+  condition:
+  - condition: state
+    entity_id: sun.sun
+    state: above_horizon
+  action:
+  - service: script.lights_on_when_cloudy
+    data: {}
+  mode: restart
+- id: utility_room_turn_on_fan_set_dryer_state_when_turned_on
+  alias: 'Utility room: turn on fan, set state when Dryer reaches 80 degrees (seasonal)'
+  description: Set initial state of input_boolean and turn on fan
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.dryer_temperature
+    for: 00:02:00
+    above: '79'
+  action:
+  - service: input_boolean.turn_on
+    data: {}
+    target:
+      entity_id: input_boolean.dryer
+  - type: turn_on
+    device_id: 8d20f77d9646a2f2af5ea23bcf80a28d
+    entity_id: switch.utility_room_fan
+    domain: switch
+  mode: queued
+  max: 3
+- id: lights_turn_on_when_rainy_nws
+  alias: 'Lights: turn on when rainy (NWS)'
+  description: Turn on lights in Kitchen and Family room when rainy
+  trigger:
+  - platform: state
+    entity_id: weather.kgtu_hourly
+  condition:
+  - condition: and
+    conditions:
+    - condition: state
+      entity_id: sun.sun
+      state: above_horizon
+    - condition: or
+      conditions:
+      - condition: state
+        entity_id: weather.kgtu_hourly
+        state: rainy
+      - condition: state
+        entity_id: weather.kgtu_hourly
+        state: lightning-rainy
+      - condition: state
+        entity_id: weather.kgtu_hourly
+        state: pouring
+  action:
+  - service: input_boolean.turn_on
+    entity_id: input_boolean.overcast
+  - service: script.lights_on_when_cloudy
+  mode: restart
+- id: utility_room_send_notification_when_dryer_stops
+  alias: 'Utility room: send notification when Dryer stops'
+  description: Notify & reset after Dryer temperature drops from running state by
+    4 degrees
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.dryer_temperature
+    below: '87'
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 0
+  condition:
+  - condition: state
+    entity_id: input_boolean.dryer
+    state: 'on'
+  action:
+  - service: input_boolean.turn_off
+    data: {}
+    target:
+      entity_id: input_boolean.dryer
+  - service: notify.mobile_app_steev
+    data:
+      message: Check the dryer!
+      title: Laundry room
+  - service: notify.pushbullet
+    data:
+      title: Laundry room
+      message: Check the dryer!
+      target:
+      - device/opt57
+      - device/rudynuc
+  mode: restart
+- id: utility_room_send_notification_when_washing_machine_state_changes
+  alias: 'Utility room : send notification when Washing machine stops'
+  description: Notify & reset after washing machine state changes
+  trigger:
+  - platform: numeric_state
+    below: '0.1'
+    for:
+      hours: 0
+      minutes: 2
+      seconds: 0
+    entity_id: sensor.washing_machine_plug_power
+  condition:
+  - condition: state
+    entity_id: input_boolean.washing_machine
+    state: 'on'
+  action:
+  - service: notify.pushbullet
+    data:
+      title: Laundry room
+      message: Check the washer!
+      target:
+      - device/rudynuc
+      - device/opt57
+  - service: input_boolean.turn_off
+    target:
+      entity_id: input_boolean.washing_machine
+    data: {}
+  mode: restart
+- id: utility_room_set_state_when_washing_machine_turns_on
+  alias: 'Utility room: set state when Washing machine turns on'
+  description: Set initial state of input_boolean for washing machine
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.washing_machine_plug_power
+    above: '1.0'
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 5
+  condition: []
+  action:
+  - service: input_boolean.turn_on
+    data: {}
+    target:
+      entity_id: input_boolean.washing_machine
+  mode: queued
+  max: 3
+- id: utility_room_turn_fan_off_when_dryer_cools
+  alias: 'Utility room: when Dryer cools to 85 degrees, turn off fan (doesn''t work)'
+  description: Turn off Utility room fan after dryer turns off
+  trigger:
+  - type: temperature
+    platform: device
+    device_id: 520de2162d3db1325b42bd06ecdc232a
+    entity_id: sensor.dryer_temperature
+    domain: sensor
+    below: 85
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 2
+  condition: []
+  action:
+  - service: input_boolean.turn_off
+    target:
+      entity_id: input_boolean.dryer
+    data: {}
+  - type: turn_off
+    device_id: 8d20f77d9646a2f2af5ea23bcf80a28d
+    entity_id: switch.utility_room_fan
+    domain: switch
+  mode: queued
+  max: 3
+- id: garage_send_notification_when_door_is_open
+  alias: 'Garage door: notify when it is open after sunset'
+  description: Notify when Garage door is open after dark
+  trigger:
+  - platform: sun
+    event: sunset
+  condition:
+  - condition: state
+    entity_id: binary_sensor.garage_door_sensor
+    state: 'on'
+  action:
+  - service: notify.mobile_app_steev
+    data:
+      message: You left the garage door open!
+      title: Garage
+  - service: notify.pushbullet
+    data:
+      message: You left the garage door open!
+      title: Garage
+      target:
+      - device/opt57
+      - device/rudynuc
+  - service: persistent_notification.create
+    data:
+      message: You left the garage door open!
+      title: Garage
+  mode: restart
+- id: office_harmony_power_off_aiwa_media_player_when_aiwa_activity_ends
+  alias: 'Office Harmony: Toggle Aiwa media player power'
+  description: Toggle Aiwa power when based on audio activity
+  trigger:
+  - platform: device
+    type: turned_off
+    device_id: 2aeb746d77fd699b6aaf8547bd314b87
+    entity_id: switch.office_harmony_aiwa_audio
+    domain: switch
+    id: audio-off
+  - platform: device
+    type: turned_on
+    device_id: 2aeb746d77fd699b6aaf8547bd314b87
+    entity_id: switch.office_harmony_moode_audio
+    domain: switch
+    id: audio-on
+  condition: []
+  action:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id: audio-off
+      sequence:
+      - service: media_player.turn_off
+        data: {}
+        target:
+          entity_id: media_player.aiwa
+    - conditions:
+      - condition: trigger
+        id: audio-on
+      sequence:
+      - service: media_player.turn_on
+        data: {}
+        target:
+          entity_id: media_player.aiwa
+    default: []
+  mode: single
+- id: tradfri_shortcut_button_turn_off_all_lights
+  alias: 'Tradfri: Shortcut button to control some lights'
+  description: Turn off, or on long click, toggle lights using Tradfri shortcut button
+  use_blueprint:
+    path: mcflexus/zha-ikea-tradfri-shortcut-button-debounced.yaml
+    input:
+      shortcut_button: d3f86a2a5f1fc42d700272b34212cbd6
+      button_short:
+      - service: script.lights_off_when_sunny
+      button_long:
+      - service: script.lights_on_when_cloudy
+- id: office_reading_control_colorful
+  alias: 'Office reading: control Colorful'
+  description: ZHA - IKEA TRADFRI - 5 Button Remote - Color Lights
+  use_blueprint:
+    path: niro1987/zha_ikea_tradfri_5button_remote_color.yaml
+    input:
+      remote: 716f748c739b986bcf7996549b53332f
+      light: light.office_floor_lamp_colorful
+- id: family_room_control_end_table_lamps_n_and_s
+  alias: 'Family room: control Steve''s & Laura''s table lamps N & S'
+  description: ZHA - IKEA five button remote for lights
+  use_blueprint:
+    path: frenck/zha-ikea-five-button-remote-for-lights.yaml
+    input:
+      remote: 90421f47b0366788d875942351ad934d
+      light:
+        device_id: 045b7f63a4181d9d78da27759bc659ec
+      brightness: 33
+      button_left_short:
+      - device_id: 3577a84b06595358a61df5417787537c
+        domain: light
+        entity_id: light.family_room_table_lamp_s
+        type: brightness_decrease
+      button_left_long:
+      - type: turn_off
+        device_id: 3577a84b06595358a61df5417787537c
+        entity_id: light.family_room_table_lamp_s
+        domain: light
+      button_right_short:
+      - device_id: 3577a84b06595358a61df5417787537c
+        domain: light
+        entity_id: light.family_room_table_lamp_s
+        type: brightness_increase
+      button_right_long:
+      - type: toggle
+        device_id: 3577a84b06595358a61df5417787537c
+        entity_id: light.family_room_table_lamp_s
+        domain: light
+- id: family_room_control_end_table_lamp_s
+  alias: 'Family room: control end table lamp S'
+  description: Controller - IKEA E1743 TRÅDFRI On/Off Switch & Dimmer
+  use_blueprint:
+    path: EPMatt/ikea_e1743.yaml
+    input:
+      integration: ZHA
+      controller_device: 8bb13044b16096cbff4a063845fd5fbe
+      helper_last_controller_event: input_text.last_end_table_button_event
+      action_button_up_short:
+      - type: turn_on
+        device_id: 3577a84b06595358a61df5417787537c
+        entity_id: light.family_room_table_lamp_s
+        domain: light
+      action_button_down_short:
+      - type: turn_off
+        device_id: 3577a84b06595358a61df5417787537c
+        entity_id: light.family_room_table_lamp_s
+        domain: light
+      action_button_down_long:
+      - device_id: 3577a84b06595358a61df5417787537c
+        domain: light
+        entity_id: light.family_room_table_lamp_s
+        type: brightness_decrease
+      button_down_long_loop: true
+      button_down_long_max_loop_repeats: 10
+      action_button_up_long:
+      - device_id: 3577a84b06595358a61df5417787537c
+        domain: light
+        entity_id: light.family_room_table_lamp_s
+        type: brightness_increase
+      button_up_long_loop: true
+      button_up_long_max_loop_repeats: 9
+- id: kitchen_hue_remote_controls_ceiling_lights_n
+  alias: 'Kitchen: Hue remote controls ceiling lights N'
+  description: Philips Dimmer Remote
+  use_blueprint:
+    path: apollo1220/philips_zigbee_remote.yaml
+    input:
+      remote: 281f8fb032c5ccad56cf867ba3e3ecd7
+      double_light:
+        device_id: 2feeace2b1c1ff14d5765396667b0aec
+        entity_id: light.kitchen_ceiling_lights_group
+      single_light:
+        entity_id: light.kitchen_ceiling_lights_group
+- id: kitchen_hue_remote_controls_ceiling_lights_s
+  alias: 'Kitchen: Hue remote controls ceiling lights S'
+  description: Philips Dimmer Remote
+  use_blueprint:
+    path: apollo1220/philips_zigbee_remote.yaml
+    input:
+      remote: e806b373c9565b332a04f59d7233a465
+      double_light:
+        device_id: 2feeace2b1c1ff14d5765396667b0aec
+        entity_id: light.kitchen_ceiling_lights_group
+      single_light:
+        entity_id: light.kitchen_ceiling_lights_group
+- id: aiwa_toggle_aiwa_power_and_sound_with_shortcut_button
+  alias: 'Aiwa: Use shortcut button to toggle Aiwa power and sound '
+  description: Shortcut button to control Aiwa
+  use_blueprint:
+    path: mcflexus/zha-ikea-tradfri-shortcut-button-debounced.yaml
+    input:
+      shortcut_button: 6b492d5242c1d9eeed84d751792caaeb
+      button_short:
+      - service: script.aiwa_toggle_mute
+        data: {}
+      button_long:
+      - service: script.aiwa_power_off
+        data: {}
+- id: aqara_magic_cube_controls
+  alias: 'Aqara Magic Cube: controls'
+  description: Control the behavior of the Aqara Magic Cube
+  use_blueprint:
+    path: rvaidya/aqara_magic_cube.yaml
+    input:
+      remote: 60bedf613f86184c111a9363407c7f42
+      active_face: input_number.aqara_face
+      flip_any: true
+      cube_flip_1:
+      - service: script.aiwa_power_off
+        data: {}
+      cube_flip_4:
+      - service: script.aiwa_pause
+        data: {}
+      cube_flip_3:
+      - type: turn_on
+        device_id: ede967c864b280218b8fd7dde341d6b0
+        entity_id: light.steve_desk_lamp
+        domain: light
+      cube_flip_6:
+      - type: turn_off
+        device_id: ede967c864b280218b8fd7dde341d6b0
+        entity_id: light.steve_desk_lamp
+        domain: light
+      slide_any_side: false
+      cube_slide_any: []
+      rotate_left_side_3:
+      - device_id: ede967c864b280218b8fd7dde341d6b0
+        domain: light
+        entity_id: light.steve_desk_lamp
+        type: brightness_decrease
+      rotate_left_side_4:
+      - service: script.aiwa_volume_down
+        data: {}
+      rotate_right_side_3:
+      - device_id: ede967c864b280218b8fd7dde341d6b0
+        domain: light
+        entity_id: light.steve_desk_lamp
+        type: brightness_increase
+      rotate_right_side_4:
+      - service: script.aiwa_volume_up
+        data: {}
+      slide_on_four: []
+      cube_shake:
+      - service: script.aiwa_toggle_mute
+        data: {}
+      slide_on_one: []
+      four_to_one: []
+      three_to_six: []
+      cube_drop:
+      - service: script.aiwa_play
+        data: {}
+- id: steve_desk_control_aiwa_and_lamp
+  alias: 'Steve desk: Control Aiwa and lamp'
+  description: Toggle desk lamp, adjust brightness; Turn Aiwa on/off, adjust volume
+  use_blueprint:
+    path: frenck/zha-ikea-five-button-remote-for-lights.yaml
+    input:
+      remote: 3e00b34ed05167ac65790ba992182b10
+      light:
+        device_id: ede967c864b280218b8fd7dde341d6b0
+      brightness: 34
+      force_brightness: true
+      button_left_short:
+      - service: script.aiwa_volume_down
+      button_right_short:
+      - service: script.aiwa_volume_up
+      button_left_long:
+      - service: script.aiwa_power_off
+      button_right_long:
+      - service: script.aiwa_play
+- id: colorful_control_with_tradfri_remote
+  alias: 'Colorful: control with TRADFRI remote'
+  description: Use IKEA TRADFRI 5-button remote to control Colorful in Office reading
+    area
+  use_blueprint:
+    path: niro1987/zha_ikea_tradfri_5button_remote_color.yaml
+    input:
+      remote: 716f748c739b986bcf7996549b53332f
+      light: light.office_floor_lamp_colorful
+- id: kitchen_sink_hue_dimmer_toggles_counter_leds
+  alias: 'Kitchen sink: Use middle Hue dimmer buttons to toggle Counter LEDs'
+  description: Use the middle Hue dimmer buttons to toggle Kitchen counter LEDs
+  trigger:
+  - device_id: 1a23c2d6443dfe07469792425a110e25
+    domain: hue
+    platform: device
+    type: initial_press
+    subtype: 2
+    unique_id: a88de3eb-f191-4c73-8e60-41945097a73b
+    id: leds-on
+  - device_id: 1a23c2d6443dfe07469792425a110e25
+    domain: hue
+    platform: device
+    type: initial_press
+    subtype: 3
+    unique_id: d2d6b335-0f8b-49da-82f1-502658f9b395
+    id: leds-off
+  condition: []
+  action:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id: leds-on
+      sequence:
+      - type: turn_on
+        device_id: d5d717f4091e5a7635474d6ae5b0bf49
+        entity_id: light.kitchen_counter_leds
+        domain: light
+    - conditions:
+      - condition: trigger
+        id: leds-off
+      sequence:
+      - type: turn_off
+        device_id: d5d717f4091e5a7635474d6ae5b0bf49
+        entity_id: light.kitchen_counter_leds
+        domain: light
+    default: []
+  mode: single
+- id: emul_roku_automations
+  alias: Emul Roku automations
+  description: Consolidated automations using Emul Roku
+  use_blueprint:
+    path: rohankapoorcom/emulated-roku.yaml
+    input:
+      emulated_roku_name: Emul
+      up_action:
+      - service: light.toggle
+        data: {}
+        target:
+          entity_id:
+          - light.bookcase_light_group
+      down_action:
+      - type: toggle
+        device_id: c50848ec03dba3ca00f332b10c4f2055
+        entity_id: light.family_room_ceiling
+        domain: light
+      right_action:
+      - service: light.turn_off
+        data: {}
+        target:
+          device_id:
+          - 2feeace2b1c1ff14d5765396667b0aec
+          - 92543275b71130ae4b9c345b06f87efc
+          entity_id: light.kitchen_ceiling_lights_group
+      left_action:
+      - scene: scene.watch_movie
+      search_action:
+      - service: script.mute_all
+        data: {}
+      rewind_action:
+      - service: script.mpd_previous
+        data: {}
+      forward_action:
+      - service: script.mpd_next
+        data: {}
+      play_action:
+      - service: script.mpd_play_pause
+        data: {}
+      instant_replay_action:
+      - service: switch.toggle
+        data: {}
+        target:
+          entity_id: switch.porch_pyle
+      info_action:
+      - service: switch.toggle
+        data: {}
+        target:
+          entity_id: switch.bathrooms_pyle
+- id: '1645832917461'
+  alias: Wave sensor
+  description: Do something
+  trigger:
+  - type: value
+    platform: device
+    device_id: 64cc6ce00d55428e9632f239048e4875
+    entity_id: sensor.wave_switch
+    domain: sensor
+    above: 0
+    below: 1
+  condition:
+  - condition: template
+    value_template: '{{ trigger.from_state.state != "unavailable" }}'
+  action:
+  - type: toggle
+    device_id: ede967c864b280218b8fd7dde341d6b0
+    entity_id: light.steve_desk_lamp
+    domain: light
+  mode: restart
+- id: '1647121078169'
+  alias: 'Garage: Wave to turn on workbench lights'
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.wave_switch
+    above: '.06'
+  condition: []
+  action:
+  - service: switch.turn_on
+    data: {}
+    target:
+      entity_id: switch.esp_362014_2ya
+  mode: restart
+- id: '1647726653184'
+  alias: 'Porch: TRADFRI 5-button remote to control music'
+  description: ''
+  use_blueprint:
+    path: niro1987/zha_ikea_tradfri_5button_remote_custom.yaml
+    input:
+      remote: edab432468c6153379a39ae60fcc5818
+      power_short:
+      - service: script.mpd_play_pause
+        data: {}
+      dimup_short:
+      - service: script.moode_mpd_volume_up
+        data: {}
+      dimdown_short:
+      - service: script.moode_mpd_volume_down
+        data: {}
+      colorup_short:
+      - service: script.mpd_next
+        data: {}
+      colordown_short:
+      - service: script.mpd_previous
+        data: {}
+      power_long:
+      - type: toggle
+        device_id: 1e9964c52dce3febfb4a57697aa46250
+        entity_id: switch.porch_pyle
+        domain: switch
+- id: '1647729259713'
+  alias: 'Family room: TRADFRI 5-button remote to control Lamp S and Ceiling'
+  description: ''
+  use_blueprint:
+    path: niro1987/zha_ikea_tradfri_5button_remote_custom.yaml
+    input:
+      remote: 3a8b2f155bb71c2778e865fb4c6dfcb1
+      power_short:
+      - type: toggle
+        device_id: 3577a84b06595358a61df5417787537c
+        entity_id: light.family_room_table_lamp_s
+        domain: light
+      dimup_short:
+      - device_id: 3577a84b06595358a61df5417787537c
+        domain: light
+        entity_id: light.family_room_table_lamp_s
+        type: brightness_increase
+      dimdown_short:
+      - device_id: 3577a84b06595358a61df5417787537c
+        domain: light
+        entity_id: light.family_room_table_lamp_s
+        type: brightness_decrease
+      colorup_short:
+      - type: turn_on
+        device_id: c50848ec03dba3ca00f332b10c4f2055
+        entity_id: light.family_room_ceiling
+        domain: light
+      colordown_short:
+      - type: turn_off
+        device_id: c50848ec03dba3ca00f332b10c4f2055
+        entity_id: light.family_room_ceiling
+        domain: light
+      colorup_long:
+      - device_id: c50848ec03dba3ca00f332b10c4f2055
+        domain: light
+        entity_id: light.family_room_ceiling
+        type: brightness_increase
+      colordown_long:
+      - device_id: c50848ec03dba3ca00f332b10c4f2055
+        domain: light
+        entity_id: light.family_room_ceiling
+        type: brightness_decrease

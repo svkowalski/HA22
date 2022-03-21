@@ -1,0 +1,54 @@
+{
+  "result": {
+    "devices": [
+      {
+        "active_time": 1626470039,
+        "biz_type": 18,
+        "category": "cz",
+        "create_time": 1626470039,
+        "icon": "smart/icon/1528685571e8zjudcjy7u_0.png",
+        "id": "784465082462ab362014",
+        "ip": "69.221.221.138",
+        "lat": "30.5242964",
+        "local_key": "b2fa424f6ee63fd2",
+        "lon": "-97.7248811",
+        "name": "Bookcase",
+        "online": true,
+        "owner_id": "10288702",
+        "product_id": "OnvcZ26nfTtFVG2Z",
+        "product_name": "Century smart socket(美洲)",
+        "status": [
+          {
+            "code": "switch",
+            "value": true
+          },
+          {
+            "code": "countdown_1",
+            "value": 0
+          },
+          {
+            "code": "cur_current",
+            "value": 1267
+          },
+          {
+            "code": "cur_power",
+            "value": 1613
+          },
+          {
+            "code": "cur_voltage",
+            "value": 1203
+          }
+        ],
+        "sub": false,
+        "time_zone": "-06:00",
+        "uid": "az1551753767998hbdWO",
+        "update_time": 1626471525,
+        "uuid": "784465082462ab362014"
+      }
+    ],
+    "last_id": "1626471525",
+    "total": 1
+  },
+  "success": true,
+  "t": 1626837707458
+}

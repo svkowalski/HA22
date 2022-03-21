@@ -1,0 +1,615 @@
+turn_off_all_media_devices:
+  alias: 'Media devices: Turn all off'
+  sequence:
+  - service: remote.turn_on
+    target:
+      entity_id: remote.bookcase
+    data:
+      activity: PowerOff
+  - type: turn_off
+    device_id: 9279fefe9c456095c853c3ef44547137
+    entity_id: remote.bookcase
+    domain: remote
+  - type: turn_off
+    device_id: 8029d86de434f0932402b96fc1d9503e
+    entity_id: switch.bathrooms_pyle
+    domain: switch
+  - type: turn_off
+    device_id: 1e9964c52dce3febfb4a57697aa46250
+    entity_id: switch.porch_pyle
+    domain: switch
+  - service: script.mpd_pause
+  - type: turn_off
+    device_id: 2aeb746d77fd699b6aaf8547bd314b87
+    entity_id: switch.office_harmony_aiwa_audio
+    domain: switch
+  mode: restart
+  icon: mdi:power
+mute_all:
+  alias: Mute all sound devices
+  sequence:
+  - service: media_player.volume_mute
+    data:
+      is_volume_muted: true
+    target:
+      device_id: 37195dcda61dd47dfa0b7045f2130375
+  - service: media_player.volume_mute
+    data:
+      is_volume_muted: true
+    target:
+      entity_id: media_player.aiwa
+  - service: shell_command.mpd_mute
+    data: {}
+  - service: input_boolean.turn_on
+    data: {}
+    target:
+      entity_id: input_boolean.moode_muted
+  icon: mdi:volume-mute
+  mode: single
+onkyo_toggle_on_off_state:
+  alias: 'Onkyo receiver: set status based on power state change (original)'
+  sequence:
+  - service_template: homeassistant.turn_{{ 'on' if states.media_player.onkyo.state
+      == 'on' else 'off' }}
+    entity_id:
+    - input_boolean.onkyo
+  icon: mdi:toggle-switch
+  mode: single
+onkyo_moode:
+  alias: 'Onkyo receiver: moOde'
+  sequence:
+  - type: turn_on
+    device_id: 9279fefe9c456095c853c3ef44547137
+    entity_id: switch.listen_to_music
+    domain: switch
+  - type: turn_on
+    device_id: 8029d86de434f0932402b96fc1d9503e
+    entity_id: switch.bathrooms_pyle
+    domain: switch
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 3
+      milliseconds: 0
+  - service: media_player.select_source
+    target:
+      entity_id: media_player.onkyo
+    data:
+      source: moOde
+  - service: media_player.media_play
+    target:
+      entity_id: media_player.moode
+  - service: homeassistant.update_entity
+    target:
+      entity_id: media_player.onkyo
+  mode: queued
+  max: 3
+  icon: mdi:alpha-m
+onkyo_chromeaudio:
+  alias: 'Onkyo receiver: ChromeAudio'
+  sequence:
+  - type: turn_on
+    device_id: 9279fefe9c456095c853c3ef44547137
+    entity_id: switch.chrome_audio
+    domain: switch
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 1
+      milliseconds: 0
+  - service: media_player.select_source
+    target:
+      entity_id: media_player.onkyo
+    data:
+      source: video2_cbl_sat
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 3
+      milliseconds: 0
+  - service: homeassistant.update_entity
+    target:
+      entity_id: media_player.onkyo
+  mode: queued
+  max: 3
+  icon: mdi:cast-audio
+onkyo_volume_up:
+  alias: 'Onkyo receiver: volume up'
+  sequence:
+  - service: media_player.volume_up
+    target:
+      entity_id: media_player.onkyo
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 1
+      milliseconds: 0
+  - service: homeassistant.update_entity
+    target:
+      entity_id: media_player.onkyo
+  mode: queued
+  max: 10
+  icon: mdi:volume-plus
+onkyo_volume_down:
+  alias: 'Onkyo receiver: volume down'
+  sequence:
+  - service: media_player.volume_down
+    target:
+      entity_id: media_player.onkyo
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 1
+      milliseconds: 0
+  - service: homeassistant.update_entity
+    target:
+      entity_id: media_player.onkyo
+  mode: queued
+  max: 10
+  icon: mdi:volume-minus
+onkyo_mute:
+  alias: 'Onkyo receiver: Mute'
+  sequence:
+  - service: remote.send_command
+    target:
+      entity_id: remote.bookcase
+    data:
+      device: AV Receiver
+      command: Mute
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 1
+      milliseconds: 0
+  - service: homeassistant.update_entity
+  mode: queued
+  max: 3
+  icon: mdi:volume-mute
+harmony_watch_dvd:
+  alias: 'Harmony: Watch DVD/Bluray'
+  sequence:
+  - type: toggle
+    device_id: 9279fefe9c456095c853c3ef44547137
+    entity_id: switch.watch_dvd
+    domain: switch
+  mode: queued
+  max: 3
+  icon: mdi:disc-player
+harmony_google_tv:
+  alias: 'Harmony: Google TV'
+  sequence:
+  - type: turn_on
+    device_id: 9279fefe9c456095c853c3ef44547137
+    entity_id: switch.google_tv
+    domain: switch
+  mode: queued
+  max: 3
+  icon: mdi:google-chrome
+harmony_broadcast_tv:
+  alias: 'Harmony: Broadcast TV'
+  sequence:
+  - type: turn_on
+    device_id: 9279fefe9c456095c853c3ef44547137
+    entity_id: switch.broadcast_tv
+    domain: switch
+  mode: queued
+  max: 3
+  icon: mdi:television-classic
+harmony_smartcast:
+  alias: 'Harmony: Vizio Smartcast'
+  sequence:
+  - type: turn_on
+    device_id: 9279fefe9c456095c853c3ef44547137
+    entity_id: switch.smartcast_tv
+    domain: switch
+  mode: queued
+  max: 10
+  icon: mdi:alpha-v-box-outline
+aiwa_power_on:
+  alias: 'Aiwa: Power on'
+  description: Input4 powers on Aiwa, sets to Play
+  sequence:
+  - service: switch.turn_on
+    target:
+      entity_id: switch.office_harmony_aiwa_audio
+  - service: remote.send_command
+    data:
+      device: Aiwa
+      command: Input4
+    target:
+      device_id: 2aeb746d77fd699b6aaf8547bd314b87
+  - service: input_boolean.turn_on
+    target:
+      entity_id: input_boolean.aiwa
+  - service: input_text.set_value
+    target:
+      entity_id: input_text.selected_source
+    data:
+      value: playing
+  - service: input_boolean.turn_off
+    target:
+      entity_id: input_boolean.aiwa_muted
+  mode: queued
+  max: 5
+  icon: mdi:power-on
+aiwa_power_off:
+  alias: 'Aiwa: Power off'
+  sequence:
+  - type: turn_off
+    device_id: 2aeb746d77fd699b6aaf8547bd314b87
+    entity_id: switch.office_harmony_aiwa_audio
+    domain: switch
+  - service: input_boolean.turn_off
+    target:
+      entity_id: input_boolean.aiwa
+  mode: queued
+  max: 5
+  icon: mdi:power-off
+aiwa_pause:
+  alias: 'Aiwa: Pause (actually, set to CD In)'
+  description: Also set Aiwa state to on, source to paused
+  sequence:
+  - service: remote.send_command
+    data:
+      device: Aiwa
+      command: Input0
+    target:
+      device_id: 2aeb746d77fd699b6aaf8547bd314b87
+  - service: input_boolean.turn_on
+    target:
+      entity_id: input_boolean.aiwa_muted
+  - service: input_boolean.turn_on
+    target:
+      entity_id: input_boolean.aiwa
+  - service: input_text.set_value
+    data:
+      value: paused
+    target:
+      entity_id: input_text.selected_source
+  mode: queued
+  max: 10
+  icon: mdi:pause
+aiwa_play:
+  alias: 'Aiwa: Play (actually, set to Aux In)'
+  description: 'Note: Setting any input turns Aiwa on; Input4 is alias for Play'
+  sequence:
+  - service: switch.turn_on
+    target:
+      entity_id: switch.office_harmony_aiwa_audio
+  - service: remote.send_command
+    data:
+      device: Aiwa
+      command: Input4
+    target:
+      entity_id: remote.office_harmony
+  - service: input_boolean.turn_on
+    target:
+      entity_id: input_boolean.aiwa
+  - service: input_text.set_value
+    data:
+      value: playing
+    target:
+      entity_id: input_text.selected_source
+  - service: input_boolean.turn_off
+    target:
+      entity_id: input_boolean.aiwa_muted
+  mode: queued
+  max: 10
+  icon: mdi:play
+aiwa_toggle_mute:
+  alias: 'Aiwa: Toggle mute'
+  sequence:
+  - choose:
+    - conditions:
+      - condition: state
+        entity_id: input_boolean.aiwa
+        state: 'on'
+      - condition: and
+        conditions:
+        - condition: state
+          entity_id: input_boolean.aiwa_muted
+          state: 'on'
+      sequence:
+      - service: script.aiwa_play
+    - conditions:
+      - condition: state
+        entity_id: input_boolean.aiwa
+        state: 'on'
+      - condition: and
+        conditions:
+        - condition: state
+          entity_id: input_boolean.aiwa_muted
+          state: 'off'
+      sequence:
+      - service: script.aiwa_pause
+    default:
+    - service: script.aiwa_play
+  mode: restart
+  icon: mdi:volume-mute
+aiwa_volume_up:
+  alias: 'Aiwa: Volume up'
+  sequence:
+  - service: script.aiwa_play
+    data: {}
+  - service: remote.send_command
+    target:
+      entity_id: remote.office_harmony
+    data:
+      device: Aiwa
+      command: VolumeUp
+  mode: restart
+  icon: mdi:volume-plus
+  max: 5
+aiwa_volume_down:
+  alias: 'Aiwa: volume down'
+  sequence:
+  - service: remote.send_command
+    target:
+      entity_id: remote.office_harmony
+    data:
+      device: Aiwa
+      command:
+      - VolumeDown
+  mode: restart
+  icon: mdi:volume-minus
+  max: 5
+aiwa_t_bass:
+  alias: 'Aiwa: T-Bass'
+  sequence:
+  - service: remote.send_command
+    target:
+      entity_id: remote.office_harmony
+    data:
+      device: Aiwa
+      command:
+      - T-Bass
+  mode: queued
+  max: 5
+  icon: mdi:alpha-t-box-outline
+aiwa_eq_bass_up:
+  alias: 'Aiwa: Equalizer bass up'
+  sequence:
+  - service: remote.send_command
+    target:
+      entity_id: remote.office_harmony
+    data:
+      device: Aiwa
+      command:
+      - EqualizerBassUp
+  mode: queued
+  max: 5
+  icon: mdi:music-clef-bass
+aiwa_surround_toggle:
+  alias: 'Aiwa: Surround toggle'
+  sequence:
+  - service: remote.send_command
+    target:
+      entity_id: remote.office_harmony
+    data:
+      device: Aiwa
+      command:
+      - SurroundToggle
+      entity_id: remote.office_harmony
+  mode: queued
+  max: 5
+  icon: mdi:surround-sound
+moode_mute:
+  alias: 'moOde: Mute'
+  sequence:
+  - service: shell_command.mpd_mute
+  - service: input_boolean.turn_on
+    target:
+      entity_id: input_boolean.moode_muted
+  mode: queued
+  max: 10
+  icon: mdi:volume-mute
+mpd_pause:
+  alias: 'moOde: mpd Pause'
+  sequence:
+  - service: shell_command.mpd_pause
+  mode: queued
+  max: 3
+  icon: mdi:pause
+mpd_play_pause:
+  alias: 'moOde: Toggle mpd play/pause'
+  sequence:
+  - service: media_player.media_play_pause
+    entity_id: media_player.moode
+  mode: queued
+  max: 3
+  icon: mdi:play-pause
+mpd_previous:
+  alias: 'mpd player: previous stream'
+  sequence:
+  - service: media_player.media_previous_track
+    entity_id: media_player.moode
+  mode: queued
+  max: 10
+  icon: mdi:skip-previous
+mpd_next:
+  alias: 'mpd player: next stream'
+  sequence:
+  - service: media_player.media_next_track
+    entity_id: media_player.moode
+  mode: queued
+  max: 10
+  icon: mdi:skip-next
+moode_mpd_volume_up:
+  alias: 'moOde: mpd Volume up'
+  sequence:
+  - service: shell_command.mpd_vol_up
+  mode: queued
+  max: 10
+  icon: mdi:volume-plus
+moode_mpd_volume_down:
+  alias: 'moOde: mpd Volume down'
+  sequence:
+  - service: shell_command.mpd_vol_down
+    data: {}
+  mode: queued
+  max: 10
+  icon: mdi:volume-minus
+family_room_ceiling_fan_light:
+  alias: Ceiling fan light - toggle
+  sequence:
+  - service: light.toggle
+    data: {}
+    target:
+      entity_id: light.family_room_ceiling
+  mode: queued
+  max: 3
+  icon: mdi:wall-sconce-round
+bathrooms_pyle:
+  alias: 'Bathrooms Pyle amp: Toggle  power'
+  sequence:
+  - entity_id: switch.bathrooms_pyle
+    service: switch.toggle
+  icon: mdi:paper-roll-outline
+  mode: queued
+  max: 3
+lights_on_when_cloudy:
+  alias: 'Cloudy: Turn on lights'
+  sequence:
+  - service: light.turn_on
+    entity_id:
+    - light.office_floor_lamp_colorful
+    - light.family_room_table_lamps
+    - light.bookcase_light_group
+    - light.kitchen_counter_leds
+    - light.kitchen_cabinet_leds_2ya
+  mode: single
+  icon: mdi:cloud
+lights_off_when_sunny:
+  alias: 'Sunny: Turn off (most) lights'
+  sequence:
+  - service: light.turn_off
+    target:
+      entity_id:
+      - light.foyer_lamp
+      - light.office_floor_lamp_colorful
+      - light.family_room_ceiling
+      - light.family_room_table_lamps
+      - light.bookcase_light_group
+      - light.bay_window_dresser_lamp
+      - light.kitchen_counter_leds
+      - light.kitchen_sink
+      - light.kitchen_cabinet_leds_2ya
+      - light.back_door
+      - light.porch_ceiling_fan
+  mode: single
+  icon: mdi:white-balance-sunny
+moode_set_mute_status:
+  alias: 'moOde: Set mute status'
+  sequence:
+  - service_template: homeassistant.turn_{{ 'on' if states.media_player.moode.volume_level
+      == '0' else 'off' }}
+    entity_id:
+    - input_boolean.moode_muted
+  mode: single
+  icon: mdi:volume-mute
+moode_set_on_off_state:
+  alias: 'moOde: Set on/off state'
+  sequence:
+  - service_template: homeassistant.turn_{{ 'on' if states.media_player.moode.media_position
+      == '0' else 'off' }}
+    entity_id:
+    - input_boolean.moode
+  mode: single
+  icon: mdi:toggle-switch
+harmony_sync_office_hub:
+  alias: 'Harmony: Sync Office hub'
+  sequence:
+    service: harmony.sync
+    target:
+      device_id: 2aeb746d77fd699b6aaf8547bd314b87
+  mode: restart
+  icon: mdi:remote
+harmony_sync_bookcase_hub:
+  alias: 'Harmony: Sync Bookcase hub'
+  sequence:
+  - service: harmony.sync
+    target:
+      device_id: 9279fefe9c456095c853c3ef44547137
+  mode: restart
+  icon: mdi:remote
+kitchen_toggle_ceiling_lights:
+  alias: 'Kitchen: Toggle ceiling lights'
+  sequence:
+  - service: light.toggle
+    data: {}
+    target:
+      entity_id:
+      - light.kitchen_ceiling_group_zha
+      - light.kitchen_table_dimmer
+  mode: restart
+  icon: mdi:spotlight-beam
+opt57_wake_up:
+  alias: 'Opti 5070: Wake up'
+  sequence:
+  - service: wake_on_lan.send_magic_packet
+    data:
+      mac: c8:f7:50:fb:b5:bb
+  - service: script.aiwa_power_on
+  mode: single
+  icon: mdi:desktop-tower
+start_chromeaudio:
+  alias: Start ChromeAudio
+  sequence:
+  - type: turn_on
+    device_id: 9279fefe9c456095c853c3ef44547137
+    entity_id: switch.chrome_audio
+    domain: switch
+  mode: single
+  icon: mdi:cast-audio-variant
+kitchen_turn_on_ceiling_lights:
+  alias: 'Kitchen: Turn on ceiling lights'
+  sequence:
+  - type: turn_on
+    device_id: 2feeace2b1c1ff14d5765396667b0aec
+    entity_id: light.kitchen_table_dimmer
+    domain: light
+  - service: light.turn_on
+    target:
+      entity_id: light.kitchen_ceiling_lights_group
+  mode: single
+  icon: hue:room-dining
+scene_watch_movie:
+  sequence:
+  - service: scene.turn_on
+    data: {}
+    target:
+      entity_id: scene.watch_movie
+  mode: single
+  alias: 'Scene: Watch movie'
+  icon: mdi:movie
+g:
+  alias: Groove Salad
+  sequence:
+  - service: media_player.play_media
+    target:
+      entity_id: media_player.vlc_telnet
+    data:
+      media_content_id: media-source://radio_browser/964b2829-0601-11e8-ae97-52543be04c81
+      media_content_type: audio/mpeg
+    metadata:
+      title: SomaFM Groove Salad
+      thumbnail: https://somafm.com/img3/groovesalad-400.jpg
+      media_class: music
+      children_media_class:
+      navigateIds:
+      - {}
+      - media_content_type: app
+        media_content_id: media-source://radio_browser
+      - media_content_type: music
+        media_content_id: media-source://radio_browser/popular
+  mode: single
+  icon: mdi:creation
+git_hub_ha22_gitpush:
+  alias: 'GitHub: push config changes to GitHub'
+  sequence:
+  - service: hassio.addon_stdin
+    data:
+      addon: a0d7b954_ssh
+      input: /config/ha22_gitpush.sh
+  mode: single
+  icon: mdi:github

@@ -1,0 +1,67 @@
+#################################################################
+## Lights & Switches
+#################################################################
+
+####################################################
+# MQTT devices
+####################################################
+# Sonoff switch light group
+  - platform: switch
+    name: Sonoff S candle
+    entity_id: switch.sonoffscandle
+  - platform: switch
+    name: Sonoff N candle
+    entity_id: switch.sonoffncandle
+
+####################################################
+# Family room light groups and switches
+####################################################
+# referenced in automations as light.bookcase_candles
+  - platform: group
+    name: Bookcase candles
+    entities:
+      - light.sonoff_s_candle
+      - light.sonoff_n_candle
+
+####################################################
+# Bookcase Hue light group
+  - platform: group
+    name: Bookcase light group
+    entities:
+      - light.bookcase_n
+      - light.bookcase_s
+
+####################################################
+# Office Hue Iris light group
+# This group is defined by Philips Hue
+  - platform: group
+    name: Irisx2
+    entities:
+      - light.iris_e
+      - light.iris_w
+
+####################################################
+# Family room table lamp group
+  - platform: group
+    name: Family room table lamps
+    entities:
+      - light.family_room_table_lamp_n
+      - light.family_room_table_lamp_s
+
+####################################################
+# Porch lamp group
+  - platform: group
+    name: Porch lights
+    entities:
+      - light.back_door
+      - light.porch_ceiling_fan
+
+####################################################
+# Kitchen ceiling lights group
+  - platform: group
+    name: Kitchen ceiling lights group
+    entities:
+      - light.ecosmart_br30_4_se
+      - light.ecosmart_br30_5_nw
+      - light.ecosmart_br30_6_sw
+      - light.ecosmart_br30_7_ne

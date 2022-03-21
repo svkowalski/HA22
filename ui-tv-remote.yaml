@@ -1,0 +1,454 @@
+views:
+  - title: Google
+    icon: mdi:google
+    path: google_tv
+    badges: []
+    cards:
+      - type: vertical-stack
+        cards:
+          - type: horizontal-stack
+            cards:
+              - type: button
+                icon: hue:wall-flood
+                name: Vizio
+                tap_action:
+                  action: navigate
+                  navigation_path: /lovelace-vizio/smartcast
+              - type: button
+                icon: mdi:audio-video
+                name: Audio
+                tap_action:
+                  action: navigate
+                  navigation_path: /lovelace-vizio/onkyo
+              - type: button
+                icon: mdi:alpha-m
+                tap_action:
+                  action: navigate
+                  navigation_path: /lovelace-vizio/moode
+                name: moOde
+              - type: custom:clock-card
+                disable_seconds: true
+                size: 100
+                time_zone: America/Chicago
+          - type: custom:harmony-card
+            entity: remote.bookcase
+            volume_entity: media_player.onkyo
+            show_activities_icons: true
+            hide_activities: false
+            scale: 1.75
+            activities:
+              - name: Google TV
+                device: Google ChromeCast TV
+                icon: mdi:google
+                volume_entity: media_player.onkyo
+                buttons:
+                  dpad_center:
+                    command: Select
+                    icon: mdi:checkbox-blank-circle-outline
+                    hide: false
+            buttons:
+              '0':
+                command: '0'
+                icon: mdi:numeric-0-circle
+                hide: false
+              '1':
+                command: '1'
+                icon: mdi:numeric-1-circle
+                hide: false
+              '2':
+                command: '2'
+                icon: mdi:numeric-2-circle
+                hide: false
+              '3':
+                command: '3'
+                icon: mdi:numeric-3-circle
+                hide: false
+              '4':
+                command: '4'
+                icon: mdi:numeric-4-circle
+                hide: false
+              '5':
+                command: '5'
+                icon: mdi:numeric-5-circle
+                hide: false
+              '6':
+                command: '6'
+                icon: mdi:numeric-6-circle
+                hide: false
+              '7':
+                command: '7'
+                icon: mdi:numeric-7-circle
+                hide: false
+              '8':
+                command: '8'
+                icon: mdi:numeric-8-circle
+                hide: false
+              '9':
+                command: '9'
+                icon: mdi:numeric-9-circle
+                hide: false
+              xbox:
+                command: Back
+                icon: mdi:arrow-left-top
+                hide: false
+              back:
+                command: Home
+                icon: mdi:home
+                hide: false
+                color: '#ffffff'
+              a:
+                command: YouTube TV
+                icon: mdi:youtube-tv
+                hide: false
+                color: '#f90400'
+              b:
+                command: Prime video
+                icon: si:amazon
+                hide: false
+                color: '#f1770f'
+              x:
+                command: Netflix
+                icon: mdi:netflix
+                hide: false
+                color: '#e20b13'
+              'y':
+                command: HBO
+                icon: si:hbo
+                hide: false
+                color: '#f1770f'
+          - type: custom:mini-media-player
+            name: Google TV
+            icon: mdi:google
+            tap_action:
+              action: more-info
+            group: true
+            hide:
+              sound_mode: false
+              controls: false
+              play_stop: false
+              jump: false
+              volume: true
+              volume_level: false
+              runtime: false
+              power_state: false
+              icon_state: false
+            source: full
+            info: scroll
+            toggle_power: false
+            entity: media_player.chromecast_with_google_tv
+  - title: SmartCast
+    path: smartcast
+    icon: hue:wall-flood
+    badges: []
+    cards:
+      - type: vertical-stack
+        cards:
+          - type: horizontal-stack
+            cards:
+              - type: button
+                icon: mdi:google
+                name: Google TV
+                tap_action:
+                  action: navigate
+                  navigation_path: /lovelace-vizio/google_tv
+              - type: button
+                icon: mdi:audio-video
+                name: Audio
+                tap_action:
+                  action: navigate
+                  navigation_path: /lovelace-vizio/onkyo
+              - type: button
+                icon: mdi:alpha-m
+                tap_action:
+                  action: navigate
+                  navigation_path: /lovelace-vizio/moode
+                name: moOde
+              - type: custom:clock-card
+                disable_seconds: true
+                size: 100
+                time_zone: America/Chicago
+          - type: media-control
+            entity: media_player.vizio
+          - type: custom:mini-media-player
+            entity: media_player.vizio_smartcast
+            name: Vizio
+            group: true
+            volume_stateless: true
+            artwork: full-cover
+            source: full
+            sound_mode: full
+            info: scroll
+            shortcuts:
+              attribute:
+                - id: Netflix
+          - type: horizontal-stack
+            cards:
+              - type: custom:button-card
+                entity: binary_sensor.garage_door_sensor
+                icon: hass:garage
+                name: Garage is
+                show_state: true
+                state:
+                  - value: 'off'
+                    color: green
+                    icon: hass:garage-variant
+                  - value: 'on'
+                    color: orange
+                    icon: hass:garage-alert-variant
+                styles:
+                  card:
+                    - width: 110px
+                    - height: 110px
+              - type: custom:button-card
+                entity: input_boolean.washing_machine
+                icon: hass:washing_machine
+                name: Washer is
+                show_state: true
+                state:
+                  - value: 'off'
+                    color: green
+                    icon: hass:washing-machine
+                  - value: 'on'
+                    color: orange
+                    icon: hass:washing-machine
+                styles:
+                  card:
+                    - height: 110px
+              - type: custom:button-card
+                entity: input_boolean.dryer
+                icon: hass:tumble-dryer
+                name: Dryer is
+                show_state: true
+                state:
+                  - value: 'off'
+                    color: green
+                    icon: hass:tumble-dryer
+                  - value: 'on'
+                    color: orange
+                    icon: hass:tumble-dryer
+                styles:
+                  card:
+                    - height: 110px
+  - title: Onkyo
+    path: onkyo
+    icon: mdi:audio-video
+    badges: []
+    cards:
+      - type: vertical-stack
+        cards:
+          - type: horizontal-stack
+            cards:
+              - type: button
+                icon: mdi:google
+                name: Google TV
+                tap_action:
+                  action: navigate
+                  navigation_path: /lovelace-vizio/google_tv
+              - type: button
+                icon: hue:wall-flood
+                name: Vizio
+                tap_action:
+                  action: navigate
+                  navigation_path: /lovelace-vizio/smartcast
+              - type: button
+                icon: mdi:alpha-m
+                tap_action:
+                  action: navigate
+                  navigation_path: /lovelace-vizio/moode
+                name: moOde
+              - type: custom:clock-card
+                disable_seconds: true
+                size: 100
+                time_zone: America/Chicago
+          - type: horizontal-stack
+            cards:
+              - type: button
+                entity: media_player.onkyo
+                name: AVR
+                icon: mdi:audio-video
+                show_state: false
+                tap_action:
+                  action: call-service
+                  service: switch.toggle
+                  service_data:
+                    entity_id: switch.listen_to_music
+              - type: button
+                entity: switch.office_harmony_aiwa_audio
+                name: Aiwa
+                icon: hass:speaker
+              - type: button
+                entity: switch.bathrooms_pyle
+                name: rooms
+                icon: hass:paper-roll-outline
+              - type: button
+                entity: switch.porch_pyle
+                name: porch
+                icon: hass:tree-outline
+              - type: button
+                entity: script.mute_all
+                name: mute
+                icon: hass:volume-mute
+                show_state: false
+                tap_action:
+                  action: call-service
+                  service: script.toggle
+                  service_data:
+                    entity_id: script.mute_all
+              - type: button
+                entity: remote.bookcase
+                icon: hass:circle-off-outline
+                name: all off
+                tap_action:
+                  action: call-service
+                  service: script.turn_off_all_media_devices
+          - type: vertical-stack
+            cards:
+              - type: custom:mini-media-player
+                icon: hass:audio-video
+                tap_action:
+                  action: more-info
+                group: true
+                hide:
+                  controls: true
+                  icon_state: false
+                  power_state: false
+                  volume_level: false
+                max_volume: '80'
+                toggle_power: false
+                volume_stateless: false
+                volume_step: '1'
+                source: full
+                info: scroll
+                min_volume: '1'
+                shortcuts:
+                  columns: 4
+                  buttons:
+                    - type: script
+                      icon: hass:alpha-m
+                      id: script.onkyo_moode
+                    - type: script
+                      icon: hass:cast-audio
+                      id: script.onkyo_chromeaudio
+                    - type: script
+                      icon: hass:volume-minus
+                      id: script.onkyo_volume_down
+                    - type: script
+                      icon: hass:volume-plus
+                      id: script.onkyo_volume_up
+                scale: '1'
+                name: AV Receiver
+                entity: media_player.onkyo
+                artwork: none
+              - type: custom:bar-card
+                title: ' '
+                direction: right
+                positions:
+                  indicator: outside
+                  icon: outside
+                  name: 'off'
+                  minmax: 'off'
+                  value: outside
+                entities:
+                  - entity: sensor.onkyo_volume
+                    direction: right
+                    color: white
+                    decimal: 0
+                    min: 1
+                    max: 80
+                    positions:
+                      icon: outside
+                      indicator: 'off'
+                      value: outside
+                severity:
+                  - from: 1
+                    to: 25
+                    color: green
+                    icon: hass:volume-low
+                  - from: 26
+                    to: 50
+                    color: orange
+                    icon: hass:volume-medium
+                  - from: 51
+                    to: 80
+                    color: red
+                    icon: hass:volume-high
+                height: 20px
+                width: []
+              - type: custom:mini-media-player
+                name: moOde
+                group: true
+                hide:
+                  controls: false
+                  volume_level: false
+                  mute: false
+                  icon_state: false
+                  power: false
+                  power_state: false
+                volume_stateless: false
+                volume_step: '5'
+                info: scroll
+                toggle_power: false
+                columns: 1
+                artwork: none
+                source: full
+                sound_mode: full
+                icon: mdi:alpha-m
+                entity: media_player.moode
+              - type: custom:mini-media-player
+                name: Aiwa - Office sound
+                icon: hass:speaker
+                tap_action:
+                  action: script.aiwa_power_toggle
+                group: true
+                hide:
+                  info: false
+                  sound_mode: true
+                  controls: false
+                  prev: false
+                  next: false
+                  play_pause: false
+                  play_stop: false
+                  power_state: false
+                  icon_state: false
+                artwork: none
+                volume_stateless: true
+                shortcuts:
+                  columns: 3
+                  buttons:
+                    - type: script
+                      icon: hass:volume-mute
+                      name: null
+                      id: script.aiwa_toggle_mute
+                    - type: script
+                      icon: hass:volume-minus
+                      name: null
+                      id: script.aiwa_volume_down
+                    - type: script
+                      icon: hass:volume-plus
+                      name: null
+                      id: script.aiwa_volume_up
+                entity: media_player.aiwa
+              - type: custom:mini-media-player
+                hide:
+                  controls: false
+                  volume_level: false
+                  mute: false
+                  icon_state: false
+                  power: false
+                  power_state: false
+                volume_stateless: false
+                group: true
+                source: full
+                info: scroll
+                replace_mute: play_pause
+                entity: media_player.chromeaudio
+                artwork: cover-fit
+  - title: moOde
+    path: moode
+    icon: mdi:alpha-m
+    badges: []
+    cards:
+      - type: iframe
+        aspect_ratio: 100%
+        url: http://192.168.1.126
+        title: moOde music

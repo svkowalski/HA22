@@ -1,0 +1,42 @@
+esphome:
+  name: dryer-temp
+  platform: ESP32
+  board: esp-wrover-kit
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+
+ota:
+  password: "72e0da3c1db38edc4e7f81584618d761"
+
+# ssid must be capitalized!
+wifi:
+  ssid: "Kalwoksi"
+  password: "deadbeef"
+  manual_ip:
+# change static IP to whatever it is set to in the router
+    static_ip: 192.168.1.233
+    gateway: 192.168.1.254
+    subnet: 255.255.255.0
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Dryer-Temperature"
+    password: "sTF9va8JzD3L"
+
+captive_portal:
+
+sensor:
+  - platform: dht
+    pin: GPIO13
+    temperature:
+      name: Dryer Temperature
+      device_class: temperature
+    humidity:
+      name: Utility Humidity
+      device_class: humidity
+    update_interval: 60s
+    model: DHT22

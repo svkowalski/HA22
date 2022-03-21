@@ -1,0 +1,381 @@
+#################################################################
+homeassistant:
+  #################################################################
+  # Packages folder location
+  # This is required for Texas Smart Meter
+  packages: !include_dir_named packages
+  #################################################################
+  # Name of the location where Home Assistant is running
+  name: Sea Ash Circle
+  # Location required to calculate the time the sun rises and sets
+  latitude: !secret latitude
+  longitude: !secret longitude
+  # Impacts weather/sunrise data
+  elevation: 221
+  # metric for Metric, imperial for Imperial
+  unit_system: imperial
+  # C for Celcius, F for Fahrenheit
+  temperature_unit: F
+  # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  time_zone: America/Chicago
+  # Currency
+  currency: USD
+  customize_glob:
+    "sensor.smt*":
+      state_class: measurement
+      last_reset: "1970-01-01T00:00:00+00:00"
+      device_class: energy
+      unit_of_measurement: kWh
+
+  #################################################################
+  # Customization file
+  customize: !include customize.yaml
+  #################################################################
+  # List of folders that can be used as sources for sending files
+  allowlist_external_dirs:
+    - /config
+
+#################################################################
+#                                                               #
+#                           GENERAL                             #
+#                                                               #
+#################################################################
+
+#################################################################
+# System Log component
+# https://www.home-assistant.io/integrations/system_log/
+system_log:
+  max_entries: 100
+
+#################################################################
+# Influx database
+#influxdb:
+# host: !secret ha22_ip
+# port: 8086
+# database: homeassistant
+# username: homeassistant
+# password: !secret influxdb_password
+# max_retries: 3
+# default_measurement: state
+
+#################################################################
+# Recorder history log
+# https://www.home-assistant.io/integrations/recorder/
+recorder:
+  purge_keep_days: 3
+  commit_interval: 30
+  db_url: mysql://homeassistant:asediapebifabgm@core-mariadb/homeassistant?charset=utf8mb4
+
+#################################################################
+# System Health component for running diagnostics
+system_health:
+
+#################################################################
+# Enables configuration UI
+# https://home-assistant.io/components/config/
+default_config:
+
+#################################################################
+# Panel iframe:
+# https://www.home-assistant.io/integrations/panel_iframe/
+panel_iframe:
+  moode:
+    title: moOde
+    icon: mdi:alpha-m
+    url: !secret moode_url
+
+#################################################################
+# Enables support for tracking state changes over time
+# https://home-assistant.io/components/history/
+history:
+
+#################################################################
+# View all events in a logbook
+logbook:
+  exclude:
+    entities:
+      - binary_sensor.kitchen_sensor_motion
+      - sensor.family_room_ceiling_light_3
+      - sensor.family_room_control_level_4
+      - sensor.master_bedroom_in_wall_dimmer_switch_3
+      - sensor.master_bathroom_in_wall_dimmer_switch_6
+      - sensor.bathrooms_pyle_8
+      - sensor.porch_pyle_9
+      - binary_sensor.c929_fan
+      - sensor.c929_current_temp
+      - sensor.c929_high_t2
+      - sensor.c929_low_t1
+      - sensor.c929_max
+      - sensor.c929_min
+      - sensor.c929_mode
+      - device_tracker.blue
+      - device_tracker.vizio_remote_old_moto
+      - device_tracker.asus_flip
+      - device_tracker.moto_g7
+      - device_tracker.penpen
+      - device_tracker.wall_panel_home
+    entity_globs:
+      - binary_sensor.moto_g_7_play_*
+      - binary_sensor.sm_g950u_*
+      - binary_sensor.steev_*
+      - binary_sensor.wall_panel_*
+      - binary_sensor.blue_*
+      - binary_sensor.asus_flip_*
+      - sensor.blue_*
+      - sensor.asus_flip_*
+      - sensor.steev_*
+      - sensor.wall_panel_*
+  include:
+    entities:
+      - sensor.asus_flip_battery_level
+      - sensor.blue_battery_level
+      - sensor.moto_g_7_play_battery_level
+      - sensor.sm_g950u_battery_level
+      - sensor.steev_battery_level
+      - sensor.vizio_remote_old_moto_battery_level
+      - sensor.wall_panel_battery_level
+
+#################################################################
+# Enables the frontend
+# https://www.home-assistant.io/components/frontend/
+frontend:
+  # These entries were needed for custom icons to appear correctly
+  extra_module_url:
+    - /hacsfiles/hass-hue-icons/hass-hue-icons.js
+    # This entry is needed for bha:icons to appear correctly
+  # - /local/hass-bha-icons.js
+
+#################################################################
+# Configure Lovelace component for STORAGE mode:
+# https://next--home-assistant-docs.netlify.com/lovelace/yaml-mode/
+lovelace:
+  # mode: yaml
+  mode: storage
+
+#################################################################
+# Enable Nabu Casa remote access
+# https://www.nabucasa.com/config/
+cloud:
+
+#################################################################
+# My Home Assistant
+# https://my.home-assistant.io/
+# Enables web links to find my instance of Home Assistant
+my:
+
+#################################################################
+# Add a link to the sidebar to any path in Home Assistant
+# https://gist.github.com/balloob/580deaf8c3fc76948559c5963ed4d436
+panel_custom:
+  # Lovelace dashboard
+  - name: panel-redirect
+    # url_path needs to be unique for each panel_custom config
+    url_path: redirect-dashboard
+    sidebar_title: Dashboard
+    sidebar_icon: mdi:tablet-dashboard
+    module_url: /local/panel-redirect.js
+    config:
+      # Where you want to redirect to
+      target: /lovelace/dashboard
+  # Server control
+  - name: panel-redirect
+    # url_path needs to be unique for each panel_custom config
+    url_path: redirect-server-control
+    sidebar_title: Server control
+    sidebar_icon: mdi:server
+    module_url: /local/panel-redirect.js
+    require_admin: true
+    config:
+      # Where you want to redirect to
+      target: /config/server_control
+
+####################################################
+# Discover some devices automatically
+# https://www.home-assistant.io/components/discovery/
+discovery:
+
+####################################################
+# https://home-assistant.io/components/logger/
+logger:
+  default: warning
+  logs:
+    homeassistant.components.websocket_api.http.connection: critical
+    custom_components.localtuya: warn
+
+####################################################
+# Track the sun
+# https://home-assistant.io/components/sun/
+sun:
+
+####################################################
+# Pirate Weather alternative weather service
+# https://pirateweather.net/
+weather:
+  - platform: pirateweather
+    api_key: !secret pirate_weather_api_key
+    # Additional optional values:
+    latitude: !secret latitude
+    longitude: !secret longitude
+  # mode: "hourly" (default) or "daily"
+    name: PirateWeather
+
+####################################################
+# ZHA tuning
+# https://community.home-assistant.io/t/went-from-deconz-to-zha-this-weekend-and-starting-to-regret-it/379102/16
+# CONFIG_SOURCE_ROUTE_TABLE_SIZE which must be set to a
+# number larger than the number of devices you have
+# connected or plan to connnect, plus 10 for unplanned
+zha:
+  zigpy_config:
+    source_routing: true
+    ezsp_config:
+        CONFIG_SOURCE_ROUTE_TABLE_SIZE: 25
+
+####################################################
+# Enable Pushbullet
+# https://www.home-assistant.io/integrations/pushbullet/
+notify:
+  - name: pushbullet
+    platform: pushbullet
+    api_key: !secret pushbullet_api
+
+####################################################
+# Utility meter
+# https://www.home-assistant.io/integrations/utility_meter/
+#utility_meter:
+# hourly_energy:
+#    source: sensor.smt
+#    name: SMT hourly energy
+#    cycle: hourly
+#  daily_energy:
+#    source: sensor.smt
+#    name: SMT daily energy
+#    cycle: daily
+#  weekly_energy:
+#    source: sensor.smt
+#    name: SMT weekly energy
+#    cycle: weekly
+#  monthly_energy:
+#    source: sensor.smt
+#    name: SMT monthly energy
+#    cycle: monthly
+
+####################################################
+# Enables HA for Android, et al.
+mobile_app:
+
+####################################################
+#                                                  #
+#               MEDIA DEVICES                      #
+#                                                  #
+####################################################
+
+####################################################
+# Expose media for use in HA
+media_source:
+
+####################################################
+# Add Onkyo AV receiver
+# https://www.home-assistant.io/components/media_player.onkyo/
+media_player:
+  - platform: onkyo
+    host: !secret onkyo_ip
+    name: Onkyo
+    # Leave this set to 100; bar card depends on this
+    max_volume: 100
+    receiver_max_volume: 100
+    sources:                  # per Onkyo eiscp:
+      tv-cd: "TV/analog"      # TV/CD
+      bd-dvd: "Blu-ray"       # DVD
+      cbl-sat: "ChromeAudio"  # VIDEO2
+      game: "Game"            # VIDEO3
+      pc: "moOde"             # VIDEO6
+      fm: "FM"                # FM
+
+  ####################################################
+  # Add Aiwa receiver using media_player.template
+  # https://github.com/Sennevds/media_player.template
+  - platform: media_player_template
+    media_players:
+      aiwa:
+        friendly_name: Aiwa
+        device_class: receiver
+        current_source_template: "{{ states('input_text.selected_source') }}"
+        value_template: >
+          {% if is_state("input_boolean.aiwa", "on") -%}
+            on
+          {%- else -%}
+            off
+          {%- endif %}
+        turn_on:
+          service: script.aiwa_power_on
+        turn_off:
+          service: script.aiwa_power_off
+        play:
+          service: script.aiwa_play
+        pause:
+          service: script.aiwa_pause
+        stop:
+          service: script.aiwa_pause
+        previous:
+          service: script.mpd_previous
+        next:
+          service: script.mpd_next
+        volume_up:
+          service: script.aiwa_volume_up
+        volume_down:
+          service: script.aiwa_volume_down
+        inputs:
+          Play (Aux):
+            service: script.aiwa_play
+          Pause (CD):
+            service: script.aiwa_pause
+        mute:
+          service: script.aiwa_toggle_mute
+        current_is_muted_template: "{{ states('input_boolean.aiwa_muted') }}"
+
+  ######################################################
+  # Add moOde Music Player Daemons (mpd)
+  # https://www.home-assistant.io/components/media_player.mpd/
+  - platform: mpd
+    name: moOde
+    # If the IP address changes, remember to change the MPD shell command!
+    host: !secret moode_ip
+
+# Text to speech
+tts:
+  - platform: google_translate
+
+####################################################
+#                                                  #
+#      LINKS TO INCLUDE CONFIGURATION FILES        #
+#                                                  #
+####################################################
+# Note: customize.yaml is at the top of this file
+####################################################
+# automation old: !include_dir_merge_list automations
+automation: !include automations.yaml
+####################################################
+binary_sensor: !include binary_sensors.yaml
+####################################################
+group: !include groups.yaml
+####################################################
+input_boolean: !include input_boolean.yaml
+####################################################
+input_number: !include input_number.yaml
+####################################################
+input_select: !include input_select.yaml
+####################################################
+input_text: !include input_text.yaml
+####################################################
+light: !include lights.yaml
+####################################################
+scene: !include scenes.yaml
+####################################################
+script: !include scripts.yaml
+####################################################
+sensor: !include sensors.yaml
+####################################################
+shell_command: !include shell_commands.yaml
+####################################################
+switch: !include switches.yaml

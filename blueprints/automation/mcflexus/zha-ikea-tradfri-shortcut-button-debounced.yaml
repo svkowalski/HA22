@@ -1,0 +1,65 @@
+blueprint:
+  name: ZHA - IKEA Tradfri Shortcut button (debounced)
+  description: Control anything with the ikea shortcut button (debounced)
+  domain: automation
+  input:
+    shortcut_button:
+      name: Device
+      description: Select an IKEA shortcut button
+      selector:
+        device:
+          integration: zha
+          manufacturer: IKEA of Sweden
+          model: TRADFRI SHORTCUT Button
+    button_short:
+      name: Single click
+      description: 'Choose action(s) when short pressed:'
+      default: []
+      selector:
+        action: {}
+    button_long:
+      name: Long click
+      description: 'Choose action(s) when long pressed:'
+      default: []
+      selector:
+        action: {}
+  source_url: https://community.home-assistant.io/t/zha-ikea-tradfri-shortcut-button-debounced/265921
+mode: single
+max_exceeded: silent
+trigger:
+- platform: event
+  event_type: zha_event
+  event_data:
+    device_id: !input 'shortcut_button'
+action:
+- variables:
+    command: '{{ trigger.event.data.command }}'
+    cluster_id: '{{ trigger.event.data.cluster_id }}'
+    endpoint_id: '{{ trigger.event.data.endpoint_id }}'
+    args: '{{ trigger.event.data.args }}'
+- choose:
+  - conditions:
+    - '{{ endpoint_id == 1 }}'
+    - '{{ cluster_id == 6 }}'
+    - '{{ command == ''on'' }}'
+    sequence:
+    - choose:
+      default: !input 'button_short'
+    - wait_for_trigger:
+      - platform: event
+        event_type: zha_event
+        event_data:
+          device_id: !input 'shortcut_button'
+          endpoint_id: 1
+          cluster_id: 8
+          command: move_with_on_off
+      timeout:
+        milliseconds: 750
+      continue_on_timeout: false
+    - choose:
+      default: !input 'button_long'
+  - conditions:
+    - '{{ endpoint_id == 1 }}'
+    - '{{ cluster_id == 8 }}'
+    - '{{ command == ''move_with_on_off'' }}'
+    sequence: !input 'button_long'

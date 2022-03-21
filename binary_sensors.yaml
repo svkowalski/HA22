@@ -1,0 +1,27 @@
+  - platform: ping
+    host: 192.168.1.201
+    name: "Opt57"
+    count: 2
+    scan_interval: 30
+
+############################
+# Time of Day
+  - platform: tod
+    name: Daytime
+    after: sunrise
+    after_offset: -0:30
+    before: sunset
+    before_offset: -1:00
+
+  - platform: tod
+    name: Nighttime
+    after: sunset
+    after_offset: -1:00
+    before: sunrise
+    before_offset: -0:30
+
+  - platform: tod
+    name: Evening
+    after: sunset
+    after_offset: -1:00
+    before: "11:15"

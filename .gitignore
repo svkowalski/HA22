@@ -1,0 +1,39 @@
+# You can whitelist files/folders with !, these will not be ignored.
+!*.yaml
+!.gitignore
+!*.md
+!*.sh
+!*.js*
+!*.txt
+
+# Comment these 2 lines if you don't want to include your SSH keys
+#!.ssh/
+#!id_rsa*
+
+# Comment this if you don't want to include your Node-RED flows.
+# This is only valid if you install Node-RED as Home Assistant Add-on
+!node-red/
+
+# Uncomment this if you don't want to include secrets.yaml 
+secrets.yaml
+
+# Ignore these files/folders
+.storage
+.cloud
+.ssh/
+**/id_rsa*
+.google.token
+home-assistant.log*
+_archive
+ui-lovelace_archive
+
+# Gitignore settings for ESPHome
+# This is an example and may include too much for your use-case.
+# You can modify this file to suit your needs.
+/.esphome/
+**/*yaml.json
+**/.pioenvs/
+**/.piolibdeps/
+**/lib/
+**/src/
+**/platformio.ini

@@ -1,0 +1,60 @@
+#################################################################
+#                                                               #
+#                         Switches                              #
+#                                                               #
+#################################################################
+# MQTT devices
+#################################################################
+# Sonoff switch S
+  - platform: mqtt
+    name: "sonoffscandle"
+    unique_id: dc4f22e48010
+    state_topic: "cmnd/sonoffscandle/POWER"
+    command_topic: "cmnd/sonoffscandle/POWER"
+    payload_on: "ON"
+    payload_off: "OFF"
+    qos: 1
+    retain: 'true'
+
+#################################################################
+# Sonoff switch N
+  - platform: mqtt
+    name: "sonoffncandle"
+    unique_id: dc4f22e55a2d
+    state_topic: "cmnd/sonoffncandle/POWER"
+    command_topic: "cmnd/sonoffncandle/POWER"
+    payload_on: "ON"
+    payload_off: "OFF"
+    qos: 1
+    retain: 'true'
+
+#################################################################
+# Templates
+#################################################################
+# Sonoff switch group
+  - platform: template
+    switches:
+      sonoff_switches:
+        value_template: "{{ is_state('sensor.sonoff_switches', 'off') }}"
+        turn_on:
+          service: switch.turn_on
+          data:
+            entity_id: group.sonoff_switches
+        turn_off:
+          service: switch.turn_off
+          data:
+            entity_id: group.sonoff_switches
+
+####################################################
+# Wake on LAN
+####################################################
+# Opti 5070
+  - platform: wake_on_lan
+    name: Opt57
+    host: !secret opt57_ip
+    mac: !secret opt57_mac
+    turn_off:
+      service: hassio.addon_stdin
+      data:
+        addon: core_rpc_shutdown
+        input: opt57

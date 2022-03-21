@@ -1,0 +1,102 @@
+#################################################################
+#                                                               #
+#                           SENSOR                              #
+#                                                               #
+#################################################################
+
+#################################################################
+# Riemann sum integral / Integration platform
+  - platform: integration
+    source: sensor.office_steve_socket_power
+    name: Office-Steve
+    method: left
+
+  - platform: integration
+    source: sensor.washing_machine_plug_power
+    name: Washing machine
+    method: left
+
+#################################################################
+# PirateWeather sensors
+  - platform: pirateweather
+    api_key: !secret pirate_weather_api_key
+    scan_interval: '00:15:00'
+    monitored_conditions:
+      - temperature
+      - precip_probability
+      - precip_type
+      - humidity
+      - cloud_cover
+      - nearest_storm_distance
+      - precip_intensity
+      - wind_speed
+
+#################################################################
+# System Monitor
+  - platform: systemmonitor
+    resources:
+      - type: processor_temperature
+
+#################################################################
+# v v v v    Template sensors from this point below...  v v v v #
+#################################################################
+  - platform: template
+    sensors:
+
+#################################################################
+## Bookcase sonoff switches
+#################################################################
+      sonoff_switches:
+        value_template: >-
+          {% if is_state('switch.sonoffscandle.state', 'on') %}
+            'on'
+          {% else %}
+            'off'
+          {% endif %}
+
+#################################################################
+## Current [Harmony in Bookcase] Activity
+# When remote is off, Activity is blank; need a sensor that always
+# has information so lovelace doesn't get confused
+# https://community.home-assistant.io/t/harmony-activities-volume-slider-and-lovelace/72419
+#################################################################
+      bookcase_activity:
+        friendly_name: 'Current Bookcase activity'
+        value_template: >
+          {% if is_state('remote.bookcase', 'on') %}
+            {{ states.remote.bookcase.attributes.current_activity }}
+          {% else %}
+            PowerOff
+          {% endif %}
+
+#################################################################
+## Current [Harmony in Office] Activity
+#################################################################
+      office_activity:
+        friendly_name: 'Current Office activity'
+        value_template: >
+          {% if is_state('remote.office', 'on') %}
+            {{ states.remote.office.attributes.current_activity }}
+          {% else %}
+            PowerOff
+          {% endif %}
+
+#################################################################
+## Onkyo AV Receiver volume
+#################################################################
+# updated 6/21/2020 based on:
+# https://community.home-assistant.io/t/media-player-volume-slider-and-source-select/131439/2
+      onkyo_volume:
+        friendly_name: 'Onkyo Volume'
+        icon_template: mdi:volume-medium
+        value_template: >-
+          {% if is_state('media_player.onkyo', 'on') %}
+            {% set volume = (state_attr('media_player.onkyo', 'volume_level') * 100.0) | int %}
+            {{ volume }}
+          {% else %}
+            0.0
+          {% endif %}
+
+#################################################################
+# ^ ^ ^ ^    Template sensors from this point above...  ^ ^ ^ ^ #
+#################################################################

@@ -1,0 +1,54 @@
+{
+  "result": {
+    "devices": [
+      {
+        "active_time": 1626469858,
+        "biz_type": 18,
+        "category": "cz",
+        "create_time": 1626469858,
+        "icon": "smart/icon/1528685571e8zjudcjy7u_0.png",
+        "id": "41665642dc4f22bf0a14",
+        "ip": "69.221.221.138",
+        "lat": "30.5242964",
+        "local_key": "fde34cec3ee31c76",
+        "lon": "-97.7248811",
+        "name": "Steve's desk",
+        "online": true,
+        "owner_id": "10288702",
+        "product_id": "OnvcZ26nfTtFVG2Z",
+        "product_name": "Century smart socket(美洲)",
+        "status": [
+          {
+            "code": "switch",
+            "value": true
+          },
+          {
+            "code": "countdown_1",
+            "value": 0
+          },
+          {
+            "code": "cur_current",
+            "value": 947
+          },
+          {
+            "code": "cur_power",
+            "value": 893
+          },
+          {
+            "code": "cur_voltage",
+            "value": 1214
+          }
+        ],
+        "sub": false,
+        "time_zone": "-06:00",
+        "uid": "az1551753767998hbdWO",
+        "update_time": 1626559293,
+        "uuid": "41665642dc4f22bf0a14"
+      }
+    ],
+    "last_id": "1626559293",
+    "total": 1
+  },
+  "success": true,
+  "t": 1626837489599
+}

@@ -1,0 +1,415 @@
+background: var(--background-image)
+title: Wall
+swipe_nav:
+  skip_tabs: 3
+  prevent_default: true
+kiosk_mode:
+  hide_header: false
+views:
+  - title: Dashboard
+    path: dashboard
+    icon: mdi:fullscreen
+    type: panel
+    badges: []
+    cards:
+      - type: vertical-stack
+        title: Dashboard
+        cards:
+          - type: horizontal-stack
+            cards:
+              - type: button
+                icon: hass:lamps
+                name: Lights
+                tap_action:
+                  action: navigate
+                  navigation_path: /lovelace-wall/lights
+              - type: button
+                icon: hass:music
+                name: Music
+                tap_action:
+                  action: navigate
+                  navigation_path: /lovelace-wall/sounds
+              - type: button
+                icon: hass:alpha-m
+                name: moOde
+                tap_action:
+                  action: navigate
+                  navigation_path: /lovelace-wall/moode
+              - type: button
+                icon: hass:weather-partly-cloudy
+                tap_action:
+                  action: navigate
+                  navigation_path: /lovelace-wall/climate
+                name: Climate
+          - type: horizontal-stack
+            cards:
+              - type: custom:button-card
+                entity: binary_sensor.garage_door_sensor
+                icon: hass:garage
+                name: Garage is
+                show_state: true
+                state:
+                  - value: 'off'
+                    color: green
+                    icon: hass:garage-variant
+                  - value: 'on'
+                    color: orange
+                    icon: hass:garage-alert-variant
+              - type: gauge
+                entity: sensor.room_temperature
+                min: 50
+                max: 90
+                name: Family room
+                severity:
+                  blue: 0
+                  yellow: 62
+                  green: 70
+                  red: 83
+                needle: true
+              - type: custom:button-card
+                entity: input_boolean.washing_machine
+                icon: hass:washing_machine
+                name: Washer is
+                show_state: true
+                state:
+                  - value: 'off'
+                    color: green
+                    icon: hass:washing-machine
+                  - value: 'on'
+                    color: orange
+                    icon: hass:washing-machine
+              - type: custom:button-card
+                entity: input_boolean.dryer
+                icon: hass:tumble-dryer
+                name: Dryer is
+                show_state: true
+                state:
+                  - value: 'off'
+                    color: green
+                    icon: hass:tumble-dryer
+                  - value: 'on'
+                    color: orange
+                    icon: hass:tumble-dryer
+          - type: horizontal-stack
+            cards:
+              - type: button
+                entity: switch.listen_to_music
+                icon: hass:music-box-outline
+                name: moOde
+                tap_action:
+                  action: toggle
+              - type: button
+                entity: script.turn_off_all_media_devices
+                icon: hass:power-standby
+                name: Music off
+                tap_action:
+                  action: toggle
+                hold_action:
+                  action: call-service
+                  service: script.shut_everything_off
+              - type: button
+                entity: script.kitchen_toggle_ceiling_lights
+                name: Kitchen lights
+                icon: mdi:lightbulb-group-outline
+                tap_action:
+                  action: toggle
+              - type: button
+                entity: script.lights_off_when_sunny
+                name: Lights off
+                icon: hass:lightbulb-group-off-outline
+                tap_action:
+                  action: toggle
+  - title: Lights (Wall)
+    path: lights
+    icon: hass:lamp
+    type: panel
+    badges: []
+    cards:
+      - type: vertical-stack
+        title: Lights
+        cards:
+          - type: horizontal-stack
+            cards:
+              - type: button
+                entity: light.family_room_ceiling
+                icon: hass:dome-light
+                tap_action:
+                  action: toggle
+                name: Family room
+              - type: button
+                entity: light.family_room_table_lamps
+                name: End tables
+                tap_action:
+                  action: toggle
+                icon: mdi:lamps-outline
+              - type: button
+                entity: light.bookcase_light_group
+                name: Bookcase
+                icon: hass:bookshelf
+                tap_action:
+                  action: toggle
+              - type: button
+                entity: script.lights_off_when_sunny
+                name: Sunny/lights off
+                icon: hass:white-balance-sunny
+                tap_action:
+                  action: toggle
+          - type: horizontal-stack
+            cards:
+              - type: button
+                entity: light.kitchen_counter_leds
+                icon: hass:wall-sconce-flat
+                name: Counter
+                tap_action:
+                  action: toggle
+              - type: button
+                entity: light.kitchen_cabinet_leds_2ya
+                icon: mdi:wall-sconce-flat-variant-outline
+                name: Cabinets
+                tap_action:
+                  action: toggle
+              - type: button
+                entity: light.kitchen_ceiling_lights_group
+                icon: hass:light-recessed
+                name: Ceiling
+                tap_action:
+                  action: toggle
+              - type: button
+                entity: script.lights_on_when_cloudy
+                name: Cloudy/lights on
+                icon: hass:cloud-outline
+                tap_action:
+                  action: toggle
+          - type: horizontal-stack
+            cards:
+              - type: button
+                entity: light.kitchen_table_dimmer
+                name: Eating area
+                icon: hue:room-dining
+              - type: button
+                entity: light.porch_ceiling_fan
+                icon: hass:ceiling-fan-light
+                name: Porch light
+                tap_action:
+                  action: toggle
+              - type: button
+                entity: light.back_door
+                icon: hass:coach-lamp
+                name: Back door
+                tap_action:
+                  action: toggle
+              - type: button
+                icon: mdi:fullscreen
+                name: → back
+                tap_action:
+                  action: navigate
+                  navigation_path: /lovelace-wall/nav
+  - title: Sounds (Wall)
+    path: sounds
+    icon: hass:music
+    type: panel
+    badges: []
+    cards:
+      - type: vertical-stack
+        title: Sounds
+        cards:
+          - type: horizontal-stack
+            cards:
+              - type: button
+                entity: switch.listen_to_music
+                icon: mdi:audio-video
+                name: AV receiver
+                tap_action:
+                  action: toggle
+              - type: button
+                entity: switch.office_harmony_aiwa_audio
+                name: office
+                icon: hass:desk
+                tap_action:
+                  action: toggle
+              - type: button
+                entity: switch.bathrooms_pyle
+                icon: hass:paper-roll-outline
+                name: Bathrooms
+                tap_action:
+                  action: toggle
+              - type: button
+                entity: switch.porch_pyle
+                icon: hass:tree-outline
+                name: Porch
+                tap_action:
+                  action: toggle
+                hold_action:
+                  action: call-service
+                  service: switch.porch_pyle
+          - type: horizontal-stack
+            cards:
+              - type: entity-button
+                entity: script.mpd_play_pause
+                icon: hass:play-pause
+                name: play/pause
+                show_state: false
+                tap_action:
+                  action: toggle
+                hold_action:
+                  action: call-service
+                  service: script.mpd_play_pause
+              - type: button
+                entity: script.mute_all
+                icon: hass:volume-mute
+                name: ' mute'
+                show_icon: true
+                show_name: true
+                tap_action:
+                  action: toggle
+                hold_action:
+                  action: call-service
+                  service: script.moode_mute
+              - type: button
+                entity: script.onkyo_volume_down
+                icon: hass:volume-minus
+                name: ' volume -'
+                tap_action:
+                  action: toggle
+                hold_action:
+                  action: call-service
+                  service: script.onkyo_volume_down
+              - type: button
+                entity: script.onkyo_volume_up
+                icon: hass:volume-plus
+                name: '  volume +'
+                tap_action:
+                  action: toggle
+          - type: horizontal-stack
+            cards:
+              - type: button
+                entity: script.mpd_previous
+                icon: hass:skip-previous
+                name: prev stream
+                tap_action:
+                  action: toggle
+                hold_action:
+                  action: call-service
+                  service: script.mpd_previous
+              - type: button
+                entity: script.turn_off_all_media_devices
+                icon: hass:power-standby
+                name: all off
+                tap_action:
+                  action: toggle
+                hold_action:
+                  action: call-service
+                  service: script.shut_everything_off
+              - type: button
+                entity: script.mpd_next
+                icon: hass:skip-next
+                name: next stream
+                tap_action:
+                  action: toggle
+                hold_action:
+                  action: call-service
+                  service: script.mpd_next
+              - type: button
+                icon: mdi:fullscreen
+                name: → back
+                tap_action:
+                  action: navigate
+                  navigation_path: /lovelace-wall/nav
+  - title: moOde
+    path: moode
+    icon: hass:alpha-m
+    panel: true
+    badges: []
+    cards:
+      - type: iframe
+        aspect_ratio: 100%
+        url: http://192.168.1.125
+        title: moOde music
+  - title: Climate
+    path: climate
+    icon: hass:weather-partly-cloudy
+    badges: []
+    cards:
+      - type: vertical-stack
+        title: Climate
+        cards:
+          - type: custom:weather-card
+            entity: weather.kgtu_hourly
+            current: true
+            details: true
+            forecast: true
+            hourly_forecast: true
+            number_of_forecasts: '6'
+            name: Outside
+          - type: custom:simple-thermostat
+            entity: climate.trane_xl824_setpoint
+            header:
+              name: Inside
+              icon: hass:autorenew
+            setpoints:
+              target_temp_low: null
+              target_temp_high: null
+            layout:
+              step: column
+              headings: false
+              sensors:
+                type: table
+                labels: true
+              mode:
+                icons: true
+                headings: true
+            unit: ' °F'
+            decimals: '0'
+            step_size: '1'
+            label:
+              temperature: Current temp
+              state: A/C state
+            hide:
+              temperature: false
+              state: true
+            control:
+              - hvac
+              - preset
+            sensors:
+              - entity: sensor.trane_xl824_relative_humidity
+                name: Inside humidity
+                decimals: 0
+              - entity: sensor.trane_xl824_outdoor_temperature
+                name: Outside temp
+                decimals: 0
+              - entity: sensor.kgtu_dew_point
+                name: Outside dew point
+                decimals: 0
+          - type: grid
+            cards:
+              - type: button
+                icon: mdi:view-dashboard
+                name: []
+                tap_action:
+                  action: navigate
+                  navigation_path: http://192.168.1.22:8123/lovelace/dashboard
+              - type: button
+                icon: hass:lamps
+                name: → Lights
+                tap_action:
+                  action: navigate
+                  navigation_path: /lovelace-wall/lights
+              - type: button
+                icon: hass:music
+                name: → Music
+                tap_action:
+                  action: navigate
+                  navigation_path: /lovelace-wall/music
+              - type: button
+                icon: hass:alpha-m
+                name: → moOde
+                tap_action:
+                  action: navigate
+                  navigation_path: /lovelace-wall/moode
+              - type: button
+                icon: mdi:fullscreen
+                name: → back
+                tap_action:
+                  action: navigate
+                  navigation_path: /lovelace-wall/nav
+            columns: 5

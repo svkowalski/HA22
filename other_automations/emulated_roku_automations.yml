@@ -1,0 +1,229 @@
+- id: lume_roku_desk_lamp_turn_on__fwd
+  alias: 'Lume Roku: <undefined action> FWD'
+  description: Lume emulated Roku command FWD <undefined action>
+  trigger:
+  - event_data:
+      key: Fwd
+      source_name: Lume
+      type: keypress
+    event_type: roku_command
+    platform: event
+  condition: []
+  action: []
+  mode: single
+- id: lume_roku_wake_up_opti_5070__up
+  alias: 'Lume Roku: Opt57 wake UP'
+  description: Lume emulated Roku command UP to wake up Opt57
+  trigger:
+  - event_data:
+      key: Up
+      source_name: Lume
+      type: keypress
+    event_type: roku_command
+    platform: event
+    context:
+      user_id:
+      - 2ad8fea7aa7b41fea83c597460692919
+  condition: []
+  action:
+  - service: script.opt57_wake_up
+  mode: single
+- id: lume_roku_put_opti_5070_to_sleep__down
+  alias: 'Lume Roku: Opt57 sleep DOWN'
+  description: Lume emulated Roku command DOWN to put Opt57 to sleep
+  trigger:
+  - event_data:
+      key: Down
+      source_name: Lume
+      type: keypress
+    event_type: roku_command
+    platform: event
+  condition: []
+  action:
+  - service: script.opti_5070_sleep
+  mode: single
+- id: lume_roku_aiwa_power_off__instantreplay
+  alias: 'Lume Roku: Power off Aiwa INSTANTREPLAY'
+  description: Lume emulated Roku command INSTANTREPLAY to turn Aiwa off
+  trigger:
+  - event_data:
+      key: InstantReplay
+      source_name: Lume
+      type: keypress
+    event_type: roku_command
+    platform: event
+  condition: []
+  action:
+  - service: script.aiwa_power_off
+  - service: media_player.turn_off
+    target:
+      entity_id: media_player.aiwa
+  - service: input_boolean.turn_off
+    target:
+      entity_id: input_boolean.aiwa
+  mode: restart
+- id: lume_roku_mute_all__backspace
+  alias: 'Lume Roku: Mute all BACKSPACE'
+  description: Lume emulated Roku command BACKSPACE to mute music everywhere
+  trigger:
+  - event_data:
+      key: BackSpace
+      source_name: Lume
+      type: keypress
+    event_type: roku_command
+    platform: event
+  condition: []
+  action:
+  - service: script.mute_all
+  mode: single
+- id: lume_roku_set_aiwa_input4__play
+  alias: 'Lume Roku: Aux/Play Aiwa PLAY'
+  description: Lume emulated Roku command set Aiwa to PLAY
+  trigger:
+  - event_data:
+      key: Play
+      source_name: Lume
+      type: keypress
+    event_type: roku_command
+    platform: event
+  condition: []
+  action:
+  - service: script.aiwa_play
+  mode: single
+- id: lume_roku_cd_aiwa__select
+  alias: 'Lume Roku: CD/Pause Aiwa SELECT'
+  description: Lume emulated Roku command SELECT to pause Aiwa
+  trigger:
+  - event_data:
+      key: Select
+      source_name: Lume
+      type: keypress
+    event_type: roku_command
+    platform: event
+  condition: []
+  action:
+  - service: script.aiwa_pause
+  mode: single
+- id: lume_roku_aiwa_mute__search
+  alias: 'Lume Roku: Aiwa mute SEARCH'
+  description: Lume emulated Roku command SEARCH to mute Aiwa
+  trigger:
+  - event_data:
+      key: Search
+      source_name: Lume
+      type: keypress
+    event_type: roku_command
+    platform: event
+  condition: []
+  action:
+  - service: script.aiwa_pause
+  mode: single
+- id: lume_roku_set_aiwa_input0_pause
+  alias: 'Lume Roku: Aiwa Input0 PAUSE'
+  description: Lume emulated Roku command set Aiwa to PAUSE
+  trigger:
+  - event_data:
+      key: Pause
+      source_name: Lume
+      type: keypress
+    event_type: roku_command
+    platform: event
+  condition: []
+  action:
+  - choose:
+    - conditions:
+      - condition: state
+        entity_id: switch.office_harmony_opt57
+        state: 'on'
+      - condition: or
+        conditions:
+        - condition: state
+          entity_id: switch.office_harmony_aiwa_audio
+          state: 'on'
+      sequence:
+      - service: script.aiwa_pause
+    default:
+    - type: turn_on
+      device_id: 2aeb746d77fd699b6aaf8547bd314b87
+      entity_id: switch.office_harmony_aiwa_audio
+      domain: switch
+    - service: script.aiwa_pause
+  mode: single
+- id: lume_roku_desk_lamp_increase_brightness__right
+  alias: 'Lume Roku: <undefined action> RIGHT'
+  description: Lume emulated Roku command RIGHT <undefined action>
+  trigger:
+  - event_data:
+      key: Right
+      source_name: Lume
+      type: keypress
+    event_type: roku_command
+    platform: event
+  condition: []
+  action: []
+  mode: single
+- id: lume_roku_desk_lamp_turn_off__rev
+  alias: 'Lume Roku: <undefined action> REV'
+  description: Lume emulated Roku command REV <undefined action>
+  trigger:
+  - event_data:
+      key: Rev
+      source_name: Lume
+      type: keypress
+    event_type: roku_command
+    platform: event
+  condition: []
+  action: []
+  mode: single
+- id: lume_roku_desk_lamp_decrease_brightness__left
+  alias: 'Lume Roku: <undefined action> LEFT'
+  description: Lume emulated Roku command RIGHT to <undefined action>
+  trigger:
+  - event_data:
+      key: Left
+      source_name: Lume
+      type: keypress
+    event_type: roku_command
+    platform: event
+  condition: []
+  action: []
+  mode: single
+- id: emul_roku_set_family_room_lighting_for_tv_viewing_search
+  alias: 'Emul Roku: set Family room lighting for TV viewing SEARCH'
+  description: SEARCH turns on Bookcase lights, turns off Ceiling fan light & dims
+    end table lamps for TV viewing
+  trigger:
+  - event_data:
+      key: Search
+      source_name: Emul
+      type: keypress
+    event_type: roku_command
+    platform: event
+  condition:
+  - condition: sun
+    before: sunset
+    before_offset: '1:00:00'
+  - condition: or
+    conditions:
+    - condition: state
+      entity_id: input_boolean.overcast
+      state: 'on'
+  action:
+  - service: light.turn_on
+    target:
+      entity_id: light.bookcase_light_group
+    data:
+      transition: 20
+      brightness: 84
+  - service: light.turn_off
+    target:
+      entity_id: light.family_room_ceiling
+  - service: light.turn_on
+    data:
+      transition: 20
+      brightness: 52
+    target:
+      entity_id:
+      - light.family_room_table_lamp_n
+      - light.family_room_table_lamp_s
+  mode: restart

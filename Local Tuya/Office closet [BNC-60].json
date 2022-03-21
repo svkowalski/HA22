@@ -1,0 +1,58 @@
+{
+  "result": {
+    "devices": [
+      {
+        "active_time": 1626385483,
+        "biz_type": 18,
+        "category": "cz",
+        "create_time": 1626385483,
+        "icon": "smart/icon/ay1518058362399MS7Ky/3218e2579a6f6953548245080840a350.png",
+        "id": "ebaf4e74db8e45110fd9jf",
+        "ip": "69.221.221.138",
+        "lat": "30.5242967",
+        "local_key": "e465a660b59aff12",
+        "lon": "-97.7248812",
+        "name": "Office closet",
+        "online": true,
+        "owner_id": "10288702",
+        "product_id": "rjz4osoyyvsxqtno",
+        "product_name": "WIFI+Bluetooth智能计费插座（U133TJ）",
+        "status": [
+          {
+            "code": "switch_1",
+            "value": true
+          },
+          {
+            "code": "countdown_1",
+            "value": 0
+          },
+          {
+            "code": "add_ele",
+            "value": 22
+          },
+          {
+            "code": "cur_current",
+            "value": 556
+          },
+          {
+            "code": "cur_power",
+            "value": 445
+          },
+          {
+            "code": "cur_voltage",
+            "value": 1235
+          }
+        ],
+        "sub": false,
+        "time_zone": "-05:00",
+        "uid": "az1551753767998hbdWO",
+        "update_time": 1626744911,
+        "uuid": "23fa65ba6558efa2"
+      }
+    ],
+    "last_id": "1626744911",
+    "total": 1
+  },
+  "success": true,
+  "t": 1626837330880
+}

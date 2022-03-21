@@ -1,0 +1,121 @@
+- id: '1644034764073'
+  name: Watch movie
+  entities:
+    light.family_room_table_lamp_n:
+      min_mireds: 250
+      max_mireds: 454
+      supported_color_modes:
+      - color_temp
+      color_mode: color_temp
+      brightness: 74
+      color_temp: 454
+      hs_color:
+      - 29.79
+      - 84.553
+      rgb_color:
+      - 255
+      - 146
+      - 39
+      xy_color:
+      - 0.579
+      - 0.388
+      off_brightness:
+      icon: mdi:lamp-outline
+      friendly_name: Family room table lamp E26 WS N
+      supported_features: 43
+      state: 'on'
+    light.family_room_table_lamp_s:
+      supported_color_modes:
+      - brightness
+      color_mode: brightness
+      brightness: 54
+      off_brightness:
+      icon: mdi:lamp
+      friendly_name: Family room table lamp E26 WW S
+      supported_features: 41
+      state: 'on'
+    light.bookcase_n:
+      min_mireds: 153
+      max_mireds: 454
+      supported_color_modes:
+      - color_temp
+      color_mode: color_temp
+      brightness: 84
+      color_temp: 400
+      hs_color:
+      - 28.874
+      - 72.522
+      rgb_color:
+      - 255
+      - 159
+      - 70
+      xy_color:
+      - 0.546
+      - 0.389
+      mode: normal
+      dynamics: none
+      icon: hass:bookshelf
+      friendly_name: Bookcase N BR30
+      supported_features: 40
+      state: 'on'
+    light.bookcase_s:
+      min_mireds: 153
+      max_mireds: 454
+      supported_color_modes:
+      - color_temp
+      color_mode: color_temp
+      brightness: 84
+      color_temp: 400
+      hs_color:
+      - 28.874
+      - 72.522
+      rgb_color:
+      - 255
+      - 159
+      - 70
+      xy_color:
+      - 0.546
+      - 0.389
+      mode: normal
+      dynamics: none
+      icon: hass:bookshelf
+      friendly_name: Bookcase S BR30
+      supported_features: 40
+      state: 'on'
+    light.bay_window_dresser_lamp:
+      supported_color_modes:
+      - brightness
+      color_mode: brightness
+      brightness: 76
+      mode: normal
+      dynamics: none
+      icon: mdi:lamp
+      friendly_name: Bay window dresser lamp E26
+      supported_features: 40
+      state: 'on'
+    light.family_room_ceiling:
+      supported_color_modes:
+      - brightness
+      icon: hass:ceiling-light
+      friendly_name: Family room In-wall dimmer
+      supported_features: 32
+      state: 'off'
+    number.family_room_ceiling_light_3:
+      min: 0
+      max: 99
+      step: 1
+      mode: auto
+      friendly_name: Family room In-wall dimmer number
+      state: '0.0'
+    light.kitchen_sink:
+      min_mireds: 153
+      max_mireds: 454
+      supported_color_modes:
+      - color_temp
+      mode: normal
+      dynamics: none
+      icon: mdi:countertop-outline
+      friendly_name: Kitchen sink BR30
+      supported_features: 40
+      state: 'off'
+  icon: mdi:movie

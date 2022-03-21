@@ -1,0 +1,36 @@
+esphome:
+  name: room-temp
+
+esp32:
+  board: esp32dev
+  framework:
+    type: arduino
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+
+ota:
+  password: "6b640e77beafb304ae33b7158d396cc9"
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Room-Temp Fallback Hotspot"
+    password: "OTsUxQJrbINk"
+
+captive_portal:
+
+sensor:
+  - platform: dht
+    pin: GPIO13
+    temperature:
+      name: "Room temperature"
+    humidity:
+      name: "Room humidity"
+    update_interval: 60s

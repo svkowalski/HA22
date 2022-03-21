@@ -1,0 +1,55 @@
+System Health
+
+version: core-2022.2.3
+installation_type: Home Assistant OS
+dev: false
+hassio: true
+docker: true
+user: root
+virtualenv: false
+python_version: 3.9.7
+os_name: Linux
+os_version: 5.10.63-v8
+arch: aarch64
+timezone: America/Chicago
+
+
+GitHub API: ok
+Github API Calls Remaining: 4661
+Installed Version: 1.21.0
+Stage: running
+Available Repositories: 978
+Downloaded Repositories: 29
+
+
+logged_in: true
+subscription_expiration: February 21, 2022, 6:00 PM
+relayer_connected: true
+remote_enabled: true
+remote_connected: true
+alexa_enabled: false
+google_enabled: false
+remote_server: us-east-1-1.ui.nabu.casa
+can_reach_cert_server: ok
+can_reach_cloud_auth: ok
+can_reach_cloud: ok
+
+
+host_os: Home Assistant OS 7.2
+update_channel: stable
+supervisor_version: supervisor-2022.01.1
+docker_version: 20.10.9
+disk_total: 116.7 GB
+disk_used: 15.6 GB
+healthy: true
+supported: true
+board: rpi4-64
+supervisor_api: ok
+version_api: ok
+installed_addons: Grafana (7.4.1), InfluxDB (4.3.0), MariaDB (2.4.0), Mosquitto broker (6.0.1), phpMyAdmin (0.7.0), Samba share (9.5.1), SSH & Web Terminal (10.0.2), Studio Code Server (4.1.0), Z-Wave JS to MQTT (0.35.0), Home Assistant Google Drive Backup (0.105.2), ESPHome (2022.1.3), Node-RED (10.4.0)
+
+
+dashboards: 3
+resources: 24
+views: 20
+mode: storage

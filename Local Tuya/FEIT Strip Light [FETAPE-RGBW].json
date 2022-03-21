@@ -1,0 +1,131 @@
+{
+  "result": {
+    "active_time": 1638844555,
+    "category": "dd",
+    "category_name": "Strip Lights",
+    "create_time": 1626904098,
+    "gateway_id": "",
+    "icon": "smart/icon/ay1517349698958w8yNe/e8cac59162d9a1aff85730378ecfa738.png",
+    "id": "eb7d767f5555c3a02ablo0",
+    "ip": "69.221.221.138",
+    "lat": "30.5243",
+    "local_key": "4a91d375d751d6cf",
+    "lon": "-97.7249",
+    "model": "LST04-WBR-BK WB智能带灯(feit)",
+    "name": "Strip Light",
+    "online": true,
+    "owner_id": "10288702",
+    "product_id": "ozvljhfjwgachved",
+    "product_name": "Strip Light",
+    "sub": false,
+    "time_zone": "-06:00",
+    "update_time": 1638844577,
+    "uuid": "6714dbf4ccff8608"
+  },
+  "success": true,
+  "t": 1638847416529
+}
+-----------------------------------------------------------------------------------
+{
+  "result": {
+    "category": "dd",
+    "functions": [
+      {
+        "code": "switch_led",
+        "desc": "{}",
+        "name": "开关",
+        "type": "Boolean",
+        "values": "{}"
+      },
+      {
+        "code": "work_mode",
+        "desc": "{\"range\":[\"white\",\"colour\",\"scene\",\"music\"]}",
+        "name": "模式",
+        "type": "Enum",
+        "values": "{\"range\":[\"white\",\"colour\",\"scene\",\"music\"]}"
+      },
+      {
+        "code": "bright_value",
+        "desc": "{\"min\":10,\"max\":1000,\"scale\":0,\"step\":1}",
+        "name": "亮度值",
+        "type": "Integer",
+        "values": "{\"min\":10,\"max\":1000,\"scale\":0,\"step\":1}"
+      },
+      {
+        "code": "colour_data",
+        "desc": "{}",
+        "name": "彩光",
+        "type": "Json",
+        "values": "{}"
+      },
+      {
+        "code": "scene_data",
+        "desc": "{}",
+        "name": "场景",
+        "type": "Json",
+        "values": "{}"
+      },
+      {
+        "code": "countdown",
+        "desc": "{\"min\":0,\"max\":86400,\"scale\":0,\"step\":1}",
+        "name": "倒计时剩余时间",
+        "type": "Integer",
+        "values": "{\"min\":0,\"max\":86400,\"scale\":0,\"step\":1}"
+      },
+      {
+        "code": "music_data",
+        "desc": "{}",
+        "name": "音乐灯",
+        "type": "Json",
+        "values": "{}"
+      },
+      {
+        "code": "control_data",
+        "desc": "{}",
+        "name": "调节",
+        "type": "Json",
+        "values": "{}"
+      }
+    ],
+    "status": [
+      {
+        "code": "switch_led",
+        "name": "开关",
+        "type": "Boolean",
+        "values": "{}"
+      },
+      {
+        "code": "work_mode",
+        "name": "模式",
+        "type": "Enum",
+        "values": "{\"range\":[\"white\",\"colour\",\"scene\",\"music\"]}"
+      },
+      {
+        "code": "bright_value",
+        "name": "亮度值",
+        "type": "Integer",
+        "values": "{\"min\":10,\"max\":1000,\"scale\":0,\"step\":1}"
+      },
+      {
+        "code": "colour_data",
+        "name": "彩光",
+        "type": "Json",
+        "values": "{}"
+      },
+      {
+        "code": "scene_data",
+        "name": "场景",
+        "type": "Json",
+        "values": "{}"
+      },
+      {
+        "code": "countdown",
+        "name": "倒计时剩余时间",
+        "type": "Integer",
+        "values": "{\"min\":0,\"max\":86400,\"scale\":0,\"step\":1}"
+      }
+    ]
+  },
+  "success": true,
+  "t": 1638847189266
+}

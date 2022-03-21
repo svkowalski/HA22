@@ -1,0 +1,58 @@
+{
+  "result": {
+    "devices": [
+      {
+        "active_time": 1625692626,
+        "biz_type": 18,
+        "category": "cz",
+        "create_time": 1625692626,
+        "icon": "smart/icon/ay1518058362399MS7Ky/3218e2579a6f6953548245080840a350.png",
+        "id": "ebe1e40cd2fc612a4f2wza",
+        "ip": "69.221.221.138",
+        "lat": "30.5242993",
+        "local_key": "ce64073e7371fd19",
+        "lon": "-97.7248816",
+        "name": "Washing machine plug",
+        "online": true,
+        "owner_id": "10288702",
+        "product_id": "rjz4osoyyvsxqtno",
+        "product_name": "WIFI+Bluetooth智能计费插座（U133TJ）",
+        "status": [
+          {
+            "code": "switch_1",
+            "value": true
+          },
+          {
+            "code": "countdown_1",
+            "value": 0
+          },
+          {
+            "code": "add_ele",
+            "value": 1
+          },
+          {
+            "code": "cur_current",
+            "value": 0
+          },
+          {
+            "code": "cur_power",
+            "value": 0
+          },
+          {
+            "code": "cur_voltage",
+            "value": 1219
+          }
+        ],
+        "sub": false,
+        "time_zone": "-05:00",
+        "uid": "az1551753767998hbdWO",
+        "update_time": 1626356416,
+        "uuid": "be3fae322185da66"
+      }
+    ],
+    "last_id": "1626356416",
+    "total": 1
+  },
+  "success": true,
+  "t": 1626823455549
+}

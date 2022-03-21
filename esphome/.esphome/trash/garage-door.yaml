@@ -1,0 +1,24 @@
+esphome:
+  name: garage-door
+  platform: ESP8266
+  board: esp01_1m
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+
+ota:
+  password: "3ba223e2a28030f8da083001e99f789b"
+
+wifi:
+  ssid: "kalwoksi"
+  password: "deadbeef"
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Garage-Door Fallback Hotspot"
+    password: "qKA0hvDmnZal"
+
+captive_portal:

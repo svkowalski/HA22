@@ -1,0 +1,38 @@
+esphome:
+  name: garage-door-sensor
+  platform: ESP8266
+  board: esp8285
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+
+ota:
+  password: "72e0da3c1db38edc4e7f81584618d761"
+
+# ssid must be capitalized!
+wifi:
+  ssid: "Kalwoksi"
+  password: "deadbeef"
+  manual_ip:
+    static_ip: 192.168.1.230
+    gateway: 192.168.1.254
+    subnet: 255.255.255.0
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Garage-Door-Sensor"
+    password: "sTF9va8JzD3L"
+
+captive_portal:
+
+binary_sensor:
+  - platform: gpio
+    name: "Garage Door Sensor"
+    device_class: garage_door
+    pin:
+      number: GPIO04
+      inverted: False
+      mode: INPUT_PULLUP

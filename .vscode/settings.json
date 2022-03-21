@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "*.yaml": "yaml"
+    },
+    "JSON-zain.json.autorefresh": true,
+    "yaml.completion": false,
+    "redhat.telemetry.enabled": true
+}

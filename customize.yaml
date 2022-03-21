@@ -1,0 +1,4 @@
+binary_sensor.c929_fan:
+  device_class: heat
+input_text.selected_source:
+  persistent: true

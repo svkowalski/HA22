@@ -1,0 +1,60 @@
+fan_power_toggle:
+  alias: Oscillating fan power toggle
+  sequence:
+  - service: remote.send_command
+    data:
+      entity_id: remote.foyer
+      device: 71078495
+      delay_secs: 0.3
+      command:
+      - PowerToggle
+  mode: queued
+  max: 10
+fan_speed:
+  alias: Oscillating fan speed
+  sequence:
+  - service: remote.send_command
+    data:
+      entity_id: remote.foyer
+      device: 71078495
+      delay_secs: 0.3
+      command:
+      - Speed
+  mode: queued
+  max: 10
+fan_oscillate:
+  alias: Oscillating fan oscillate
+  sequence:
+  - service: remote.send_command
+    data:
+      entity_id: remote.foyer
+      device: 71078495
+      delay_secs: 0.3
+      command:
+      - Oscillate
+  mode: queued
+  max: 10
+fan_mode:
+  alias: Oscillating fan mode selection
+  sequence:
+  - service: remote.send_command
+    data:
+      entity_id: remote.foyer
+      device: 71078495
+      delay_secs: 0.3
+      command:
+      - Mode
+  mode: queued
+  max: 10
+fan_timer:
+  alias: Oscillating fan timer selection
+  sequence:
+  - service: remote.send_command
+    data:
+      entity_id: remote.foyer
+      device: 71078495
+      delay_secs: 0.3
+      command:
+      - Timer
+  mode: queued
+  max: 10

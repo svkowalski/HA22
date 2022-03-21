@@ -1,0 +1,150 @@
+- id: toggle_bookcase_lights__up
+  alias: 'Emul Roku: Bookcase toggle lights UP'
+  description: Emulated Roku command UP
+  trigger:
+  - event_data:
+      key: Up
+      source_name: Emul
+      type: keypress
+    event_type: roku_command
+    platform: event
+  action:
+  - entity_id: light.bookcase_light_group
+    service: light.toggle
+  mode: single
+- id: toggle_light_in_family_room_ceiling_fan__down
+  alias: 'Emul Roku: Family room toggle Ceiling light DOWN'
+  description: Emulated Roku command Down
+  trigger:
+  - event_data:
+      key: Down
+      source_name: Emul
+      type: keypress
+    event_type: roku_command
+    platform: event
+  action:
+  - service: light.toggle
+    target:
+      entity_id:
+      - light.family_room_ceiling
+      - light.family_room_table_lamp_n
+      - light.family_room_table_lamp_s
+    data:
+      brightness: 85
+  mode: single
+- id: toggle_family_room_table__left
+  alias: 'Emul Roku: Family room toggle table lamps LEFT'
+  description: Emulated Roku command LEFT
+  trigger:
+  - event_data:
+      key: Left
+      source_name: Emul
+      type: keypress
+    event_type: roku_command
+    platform: event
+  action:
+  - service: light.toggle
+    target:
+      entity_id:
+      - light.family_room_table_lamp_n
+      - light.family_room_table_lamp_s
+  mode: single
+- id: turn_kitchen_sink_light_off__right
+  alias: 'Emul Roku: Kitchen lights turn off RIGHT'
+  description: Toggle Kitchen sink & ceiling lights on RIGHT click
+  trigger:
+  - event_data:
+      key: Right
+      source_name: Emul
+      type: keypress
+    event_type: roku_command
+    platform: event
+  action:
+  - service: script.kitchen_turn_off_ceiling_lights
+  mode: single
+- id: toggle_bathrooms_pyle_power__info
+  alias: 'Emul Roku: Bathrooms Pyle toggle power INFO'
+  description: Emulated Roku command INFO
+  trigger:
+  - event_data:
+      key: Info
+      source_name: Emul
+      type: keypress
+    event_type: roku_command
+    platform: event
+  action:
+  - type: toggle
+    device_id: 8029d86de434f0932402b96fc1d9503e
+    entity_id: switch.bathrooms_pyle
+    domain: switch
+  mode: single
+- id: pause_play_music__play
+  alias: 'Emul Roku: MPD Pause/Play music PLAY'
+  description: Emulated Roku MPD pause/play
+  trigger:
+  - event_data:
+      key: Play
+      source_name: Emul
+      type: keypress
+    event_type: roku_command
+    platform: event
+  action:
+  - service: script.mpd_play_pause
+  mode: single
+- id: mpd_play_next_stream__fwd
+  alias: 'Emul Roku: MPD play next stream FWD'
+  description: Emulated Roku command FWD FastForward
+  trigger:
+  - event_data:
+      key: Fwd
+      source_name: Emul
+      type: keypress
+    event_type: roku_command
+    platform: event
+  action:
+  - service: script.mpd_next
+  mode: single
+- id: mpd_play_previous_stream__rev
+  alias: 'Emul Roku: MPD play previous stream REV'
+  description: Emulated Roku command REV Rewind
+  trigger:
+  - event_data:
+      key: Rev
+      source_name: Emul
+      type: keypress
+    event_type: roku_command
+    platform: event
+  action:
+  - service: script.mpd_previous
+  mode: single
+- id: toggle_porch_pyle__instantreplay
+  alias: 'Emul Roku: Porch Pyle toggle power INSTANTREPLAY'
+  description: Toggle audio in Porch using INSTANTREPLAY
+  trigger:
+  - event_data:
+      key: InstantReplay
+      source_name: Emul
+      type: keypress
+    event_type: roku_command
+    platform: event
+  action:
+  - type: toggle
+    device_id: 1e9964c52dce3febfb4a57697aa46250
+    entity_id: switch.porch_pyle
+    domain: switch
+  mode: queued
+  max: 3
+- id: emul_roku_mute_all_search
+  alias: 'Emul Roku: Mute all audio devices  SEARCH'
+  description: Mute Onkyo, moOde and Aiwa usin SEARCH
+  trigger:
+  - event_data:
+      key: Search
+      source_name: Emul
+      type: keypress
+    event_type: roku_command
+    platform: event
+  action:
+  - service: script.mute_all
+  mode: queued
+  max: 3

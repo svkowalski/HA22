@@ -1,0 +1,2513 @@
+background: var(--background-image)
+custom_header:
+  active_tab_color: var(--state-icon-active-color)
+  background: var(--app-header-background-color)
+  compact_mode: true
+  elements_color: var(--app-header-text-color)
+  hidden_tab_redirect: false
+  shadow: false
+  tab_icons_and_text: true
+  tab_indicator_color: var(--state-icon-active-color)
+  voice_hide: true
+swipe_nav:
+  prevent_default: true
+preload:
+  - markdown
+title: 8610 Sea Ash Circle
+badges: []
+views:
+  - icon: hass:home-assistant
+    title: Dashboard
+    path: dashboard
+    theme: Backend-selected
+    panel: false
+    cards:
+      - type: vertical-stack
+        cards:
+          - type: horizontal-stack
+            cards:
+              - type: custom:clock-card
+                disable_seconds: true
+                size: 100
+                time_zone: America/Chicago
+              - type: custom:button-card
+                entity: binary_sensor.garage_door_sensor
+                icon: hass:garage
+                name: Garage is
+                show_state: true
+                state:
+                  - value: 'off'
+                    color: green
+                    icon: hass:garage-variant
+                  - value: 'on'
+                    color: orange
+                    icon: hass:garage-alert-variant
+                styles:
+                  card:
+                    - width: 110px
+                    - height: 110px
+              - type: custom:button-card
+                entity: input_boolean.washing_machine
+                icon: hass:washing_machine
+                name: Washer is
+                show_state: true
+                state:
+                  - value: 'off'
+                    color: green
+                    icon: hass:washing-machine
+                  - value: 'on'
+                    color: orange
+                    icon: hass:washing-machine
+                styles:
+                  card:
+                    - height: 110px
+              - type: custom:button-card
+                entity: input_boolean.dryer
+                icon: hass:tumble-dryer
+                name: Dryer is
+                show_state: true
+                state:
+                  - value: 'off'
+                    color: green
+                    icon: hass:tumble-dryer
+                  - value: 'on'
+                    color: orange
+                    icon: hass:tumble-dryer
+                styles:
+                  card:
+                    - height: 110px
+          - type: horizontal-stack
+            cards:
+              - type: button
+                entity: media_player.onkyo
+                name: AVR
+                icon: mdi:audio-video
+                show_state: false
+                tap_action:
+                  action: call-service
+                  service: switch.toggle
+                  service_data:
+                    entity_id: switch.listen_to_music
+              - type: button
+                entity: switch.office_harmony_aiwa_audio
+                name: Aiwa
+                icon: hass:speaker
+              - type: button
+                entity: switch.bathrooms_pyle
+                name: rooms
+                icon: hass:paper-roll-outline
+              - type: button
+                entity: switch.porch_pyle
+                name: porch
+                icon: hass:tree-outline
+              - type: button
+                entity: script.mute_all
+                name: mute
+                icon: hass:volume-mute
+                show_state: false
+                tap_action:
+                  action: call-service
+                  service: script.toggle
+                  service_data:
+                    entity_id: script.mute_all
+              - type: button
+                entity: remote.bookcase
+                icon: hass:circle-off-outline
+                name: all off
+                tap_action:
+                  action: call-service
+                  service: script.turn_off_all_media_devices
+          - type: vertical-stack
+            cards:
+              - type: custom:bar-card
+                title: ' '
+                direction: right
+                positions:
+                  indicator: outside
+                  icon: outside
+                  name: 'off'
+                  minmax: 'off'
+                  value: outside
+                entities:
+                  - entity: sensor.onkyo_volume
+                    direction: right
+                    color: white
+                    decimal: 0
+                    min: 1
+                    max: 80
+                    positions:
+                      icon: outside
+                      indicator: 'off'
+                      value: outside
+                severity:
+                  - from: 1
+                    to: 25
+                    color: green
+                    icon: hass:volume-low
+                  - from: 26
+                    to: 50
+                    color: orange
+                    icon: hass:volume-medium
+                  - from: 51
+                    to: 80
+                    color: red
+                    icon: hass:volume-high
+                height: 20px
+                width: []
+              - type: custom:mini-media-player
+                icon: hass:audio-video
+                tap_action:
+                  action: more-info
+                group: true
+                hide:
+                  controls: true
+                  icon_state: false
+                  power_state: false
+                  volume_level: false
+                max_volume: '80'
+                toggle_power: false
+                volume_stateless: false
+                volume_step: '1'
+                source: full
+                info: scroll
+                min_volume: '1'
+                shortcuts:
+                  columns: 4
+                  buttons:
+                    - type: script
+                      icon: hass:alpha-m
+                      id: script.onkyo_moode
+                    - type: script
+                      icon: hass:cast-audio
+                      id: script.onkyo_chromeaudio
+                    - type: script
+                      icon: hass:volume-minus
+                      id: script.onkyo_volume_down
+                    - type: script
+                      icon: hass:volume-plus
+                      id: script.onkyo_volume_up
+                scale: '1'
+                name: AV Receiver
+                entity: media_player.onkyo
+                artwork: none
+              - type: custom:mini-media-player
+                name: Aiwa - Office sound
+                icon: hass:speaker
+                tap_action:
+                  action: script.aiwa_power_toggle
+                group: true
+                hide:
+                  info: false
+                  sound_mode: true
+                  controls: false
+                  prev: false
+                  next: false
+                  play_pause: false
+                  play_stop: false
+                  power_state: false
+                  icon_state: false
+                artwork: none
+                volume_stateless: true
+                shortcuts:
+                  columns: 3
+                  buttons:
+                    - type: script
+                      icon: hass:volume-mute
+                      name: null
+                      id: script.aiwa_toggle_mute
+                    - type: script
+                      icon: hass:volume-minus
+                      name: null
+                      id: script.aiwa_volume_down
+                    - type: script
+                      icon: hass:volume-plus
+                      name: null
+                      id: script.aiwa_volume_up
+                entity: media_player.aiwa
+              - type: custom:mini-media-player
+                name: moOde
+                group: true
+                hide:
+                  controls: false
+                  volume_level: false
+                  mute: false
+                  icon_state: false
+                  power: false
+                  power_state: false
+                volume_stateless: false
+                volume_step: '5'
+                info: scroll
+                toggle_power: false
+                columns: 1
+                artwork: none
+                source: full
+                sound_mode: full
+                icon: mdi:alpha-m
+                entity: media_player.moode
+              - type: custom:mini-media-player
+                hide:
+                  controls: false
+                  volume_level: false
+                  mute: false
+                  icon_state: false
+                  power: false
+                  power_state: false
+                volume_stateless: false
+                group: true
+                source: full
+                info: scroll
+                replace_mute: play_pause
+                entity: media_player.chromeaudio
+                artwork: cover-fit
+      - type: vertical-stack
+        cards:
+          - type: vertical-stack
+            cards:
+              - type: custom:text-divider-row
+                text: Lights in Family room
+              - type: glance
+                show_state: false
+                entities:
+                  - entity: light.family_room_table_lamp_s
+                    name: Laura's
+                    icon: hass:lamp
+                    tap_action:
+                      action: toggle
+                  - entity: light.family_room_ceiling
+                    icon: hass:ceiling-fan-light
+                    name: Ceiling
+                    tap_action:
+                      action: toggle
+                  - entity: light.bookcase_light_group
+                    icon: hass:bookshelf
+                    name: Bookcase
+                    tap_action:
+                      action: toggle
+                  - entity: light.family_room_table_lamp_n
+                    name: Steve's
+                    icon: hass:lamp
+                    tap_action:
+                      action: toggle
+                  - entity: light.bay_window_dresser_lamp
+                    name: Dresser lamp
+                    icon: hue:table-shade
+                    tap_action:
+                      action: toggle
+          - type: vertical-stack
+            cards:
+              - type: custom:text-divider-row
+                text: Kitchen, Porch & other rooms
+              - type: glance
+                show_state: false
+                entities:
+                  - entity: light.kitchen_table_dimmer
+                    name: Eating area
+                    icon: hue:room-dining
+                  - entity: light.kitchen_counter_leds
+                    name: Counter
+                    icon: hass:wall-sconce-flat
+                  - entity: light.kitchen_sink
+                    icon: hass:countertop
+                    name: Sink
+                  - entity: light.kitchen_cabinet_leds_2ya
+                    name: Cabinets
+                    icon: hass:wall-sconce-flat-variant-outline
+                  - entity: light.kitchen_ceiling_lights_group
+                    icon: hass:light-recessed
+                    name: Ceiling
+                columns: 5
+              - show_name: true
+                show_icon: true
+                show_state: false
+                type: glance
+                entities:
+                  - entity: light.back_door
+                    name: Back door
+                    icon: hass:coach-lamp
+                  - entity: light.porch_ceiling_fan
+                    name: Porch light
+                    icon: hass:ceiling-fan-light
+                  - entity: light.master_bedroom
+                    name: Bedroom
+                    icon: hass:bed
+                  - entity: light.master_bathroom
+                    name: Bathroom
+                    icon: hue:room-bathroom
+                columns: 4
+          - type: vertical-stack
+            cards:
+              - type: custom:text-divider-row
+                text: Foyer & Office
+              - type: glance
+                entities:
+                  - entity: light.foyer_lamp
+                    name: Foyer
+                    icon: hue:room-hallway
+                    tap_action:
+                      action: toggle
+                  - entity: light.office_floor_lamp_colorful
+                    name: Floor
+                    icon: hass:floor-lamp
+                    tap_action:
+                      action: toggle
+                  - entity: light.office_reading
+                    name: Reading
+                    icon: hass:book-open-page-variant
+                    tap_action:
+                      action: toggle
+                  - entity: light.steve_desk_lamp
+                    name: Steve
+                    icon: hue:desk-lamp
+                    tap_action:
+                      action: toggle
+                  - entity: light.laura_desk_lamp
+                    name: Laura
+                    icon: hass:lamp
+                    tap_action:
+                      action: toggle
+                show_state: false
+              - type: custom:numberbox-card
+                entity: input_number.aqara_face
+                name: Magic cube
+                secondary_info: last-updated
+                unit: ' '
+                border: true
+                icon: mdi:cube-outline
+                icon_plus: mdi:arrow-expand-horizontal
+                icon_minus: mdi:arrow-expand-vertical
+  - icon: hass:weather-partly-cloudy
+    panel: false
+    path: climate
+    title: Climate
+    badges: []
+    cards:
+      - type: vertical-stack
+        cards:
+          - type: horizontal-stack
+            cards:
+              - type: custom:clock-card
+                disable_seconds: true
+                size: 100
+                time_zone: America/Chicago
+              - type: custom:button-card
+                entity: binary_sensor.garage_door_sensor
+                icon: hass:garage
+                name: Garage is
+                show_state: true
+                state:
+                  - value: 'off'
+                    color: green
+                    icon: hass:garage-variant
+                  - value: 'on'
+                    color: orange
+                    icon: hass:garage-alert-variant
+                styles:
+                  card:
+                    - width: 110px
+                    - height: 110px
+              - type: button
+                entity: script.lights_on_when_cloudy
+                icon: hass:cloud-outline
+                name: cloudy/ lights on
+                show_icon: true
+                show_name: true
+                tap_action:
+                  action: toggle
+              - type: button
+                entity: script.lights_off_when_sunny
+                icon: hass:white-balance-sunny
+                name: sunny/ lights off
+                show_icon: true
+                show_name: true
+                tap_action:
+                  action: toggle
+          - type: horizontal-stack
+            cards:
+              - type: button
+                entity: media_player.onkyo
+                name: AVR
+                icon: mdi:audio-video
+                show_state: false
+                tap_action:
+                  action: call-service
+                  service: switch.toggle
+                  service_data:
+                    entity_id: switch.listen_to_music
+              - type: button
+                entity: switch.office_harmony_aiwa_audio
+                name: Aiwa
+                icon: hass:speaker
+              - type: button
+                entity: switch.bathrooms_pyle
+                name: rooms
+                icon: hass:paper-roll-outline
+              - type: button
+                entity: switch.porch_pyle
+                name: porch
+                icon: hass:tree-outline
+              - type: button
+                entity: script.mute_all
+                name: mute
+                icon: hass:volume-mute
+                show_state: false
+                tap_action:
+                  action: call-service
+                  service: script.toggle
+                  service_data:
+                    entity_id: script.mute_all
+              - type: button
+                entity: remote.bookcase
+                icon: hass:circle-off-outline
+                name: all off
+                tap_action:
+                  action: call-service
+                  service: script.turn_off_all_media_devices
+          - type: custom:weather-card
+            current: true
+            details: true
+            entity: weather.kgtu_hourly
+            forecast: true
+            hourly_forecast: true
+            name: Outside
+            number_of_forecasts: '7'
+      - type: vertical-stack
+        cards:
+          - type: custom:simple-thermostat
+            entity: climate.trane_xl824_setpoint
+            header:
+              name: Inside
+              icon: hass:autorenew
+            setpoints:
+              target_temp_low: null
+              target_temp_high: null
+            layout:
+              step: column
+              headings: false
+              sensors:
+                type: table
+                labels: true
+              mode:
+                icons: true
+                headings: false
+            unit: ' °F'
+            decimals: '0'
+            step_size: '1'
+            label:
+              temperature: Current temp
+              state: A/C state
+            hide:
+              temperature: false
+              state: true
+            control:
+              - hvac
+              - preset
+            sensors:
+              - entity: sensor.trane_xl824_relative_humidity
+                name: Inside humidity
+                decimals: 0
+              - entity: sensor.trane_xl824_outdoor_temperature
+                name: Outside temp
+                decimals: 0
+              - entity: sensor.kgtu_dew_point
+                name: Outside dew point
+                decimals: 0
+          - hours_to_show: 24
+            graph: line
+            type: sensor
+            entity: sensor.room_temperature
+            name: Family room - 24 hours
+            icon: hass:thermometer
+            detail: 2
+  - icon: hass:ceiling-light
+    title: Lights
+    path: lights
+    badges: []
+    cards:
+      - type: vertical-stack
+        cards:
+          - type: horizontal-stack
+            cards:
+              - type: custom:clock-card
+                disable_seconds: true
+                size: 100
+                time_zone: America/Chicago
+              - type: custom:button-card
+                entity: binary_sensor.garage_door_sensor
+                icon: hass:garage
+                name: Garage is
+                show_state: true
+                state:
+                  - value: 'off'
+                    color: green
+                    icon: hass:garage-variant
+                  - value: 'on'
+                    color: orange
+                    icon: hass:garage-alert-variant
+                styles:
+                  card:
+                    - width: 110px
+                    - height: 110px
+              - type: button
+                entity: script.lights_on_when_cloudy
+                icon: hass:cloud-outline
+                name: cloudy/lights on
+                show_icon: true
+                show_name: true
+                tap_action:
+                  action: toggle
+              - type: button
+                entity: script.lights_off_when_sunny
+                icon: hass:white-balance-sunny
+                name: sunny/lights off
+                show_icon: true
+                show_name: true
+                tap_action:
+                  action: toggle
+          - type: horizontal-stack
+            cards:
+              - type: button
+                entity: media_player.onkyo
+                name: AVR
+                icon: mdi:audio-video
+                show_state: false
+                tap_action:
+                  action: call-service
+                  service: switch.toggle
+                  service_data:
+                    entity_id: switch.listen_to_music
+              - type: button
+                entity: switch.office_harmony_aiwa_audio
+                name: Aiwa
+                icon: hass:speaker
+              - type: button
+                entity: switch.bathrooms_pyle
+                name: rooms
+                icon: hass:paper-roll-outline
+              - type: button
+                entity: switch.porch_pyle
+                name: porch
+                icon: hass:tree-outline
+              - type: button
+                entity: script.mute_all
+                name: mute
+                icon: hass:volume-mute
+                show_state: false
+                tap_action:
+                  action: call-service
+                  service: script.toggle
+                  service_data:
+                    entity_id: script.mute_all
+              - type: button
+                entity: remote.bookcase
+                icon: hass:circle-off-outline
+                name: all off
+                tap_action:
+                  action: call-service
+                  service: script.turn_off_all_media_devices
+          - type: vertical-stack
+            cards:
+              - type: custom:text-divider-row
+                text: Office, Porch, Dining room & Guest
+              - type: horizontal-stack
+                cards:
+                  - type: custom:slider-button-card
+                    entity: light.office_floor_lamp_colorful
+                    name: Floor
+                    compact: false
+                    show_state: false
+                    action_button:
+                      mode: toggle
+                    slider:
+                      attribute: brightness
+                      direction: left-right
+                      background: gradient
+                    icon:
+                      icon: mdi:floor-lamp
+                      use_state_color: true
+                      tap_action:
+                        action: more-info
+                  - type: custom:slider-button-card
+                    entity: light.office_reading
+                    name: Reading
+                    compact: false
+                    show_state: false
+                    action_button:
+                      mode: toggle
+                    slider:
+                      attribute: brightness
+                      direction: left-right
+                      background: gradient
+                    icon:
+                      icon: mdi:book-open-page-variant
+                      use_state_color: true
+                      tap_action:
+                        action: more-info
+                  - type: custom:slider-button-card
+                    entity: light.steve_desk_lamp
+                    name: Steve
+                    compact: false
+                    show_state: false
+                    action_button:
+                      mode: toggle
+                    slider:
+                      attribute: brightness
+                      direction: left-right
+                      background: gradient
+                    icon:
+                      icon: mdi:desk-lamp
+                      use_state_color: true
+                      tap_action:
+                        action: more-info
+                  - type: custom:slider-button-card
+                    entity: light.laura_desk_lamp
+                    name: Laura
+                    compact: false
+                    show_state: false
+                    action_button:
+                      mode: toggle
+                    slider:
+                      attribute: brightness
+                      direction: left-right
+                      background: gradient
+                    icon:
+                      icon: mdi:lamp
+                      use_state_color: true
+                      tap_action:
+                        action: more-info
+              - type: horizontal-stack
+                cards:
+                  - type: custom:slider-button-card
+                    entity: light.back_door
+                    name: Back door
+                    compact: false
+                    show_state: false
+                    action_button:
+                      mode: toggle
+                    slider:
+                      attribute: brightness
+                      direction: left-right
+                      background: gradient
+                    icon:
+                      icon: mdi:coach-lamp
+                      use_state_color: true
+                      tap_action:
+                        action: more-info
+                  - type: custom:slider-button-card
+                    entity: light.porch_ceiling_fan
+                    name: Porch
+                    compact: false
+                    show_state: false
+                    action_button:
+                      mode: toggle
+                    slider:
+                      attribute: brightness
+                      direction: left-right
+                      background: gradient
+                    icon:
+                      icon: mdi:ceiling-fan-light
+                      use_state_color: true
+                      tap_action:
+                        action: more-info
+                  - type: custom:slider-button-card
+                    entity: light.dining_room_dimmer
+                    name: Dining
+                    compact: false
+                    show_state: false
+                    action_button:
+                      mode: toggle
+                    slider:
+                      attribute: brightness
+                      direction: left-right
+                      background: gradient
+                    icon:
+                      icon: mdi:dome-light
+                      use_state_color: true
+                      tap_action:
+                        action: more-info
+                  - type: custom:slider-button-card
+                    entity: light.foyer_lamp
+                    name: Foyer
+                    compact: false
+                    show_state: false
+                    action_button:
+                      mode: toggle
+                    slider:
+                      attribute: brightness
+                      direction: left-right
+                      background: gradient
+                    icon:
+                      icon: hue:room-hallway
+                      use_state_color: true
+                      tap_action:
+                        action: more-info
+          - type: horizontal-stack
+            cards:
+              - type: custom:slider-button-card
+                entity: light.bay_window_dresser_lamp
+                name: Dresser
+                compact: false
+                show_state: false
+                action_button:
+                  mode: toggle
+                slider:
+                  attribute: brightness
+                  direction: left-right
+                  background: gradient
+                icon:
+                  icon: hue:table-shade
+                  use_state_color: true
+                  tap_action:
+                    action: more-info
+              - type: custom:slider-button-card
+                entity: light.master_bedroom
+                name: M Bedroom
+                compact: false
+                show_state: false
+                action_button:
+                  mode: toggle
+                slider:
+                  attribute: brightness
+                  direction: left-right
+                  background: gradient
+                icon:
+                  icon: mdi:dome-light
+                  use_state_color: true
+                  tap_action:
+                    action: more-info
+              - type: custom:slider-button-card
+                entity: light.kitchen_sink
+                name: Sink
+                compact: false
+                show_state: false
+                action_button:
+                  mode: toggle
+                slider:
+                  attribute: brightness
+                  direction: left-right
+                  background: gradient
+                icon:
+                  icon: mdi:countertop-outline
+                  use_state_color: true
+                  tap_action:
+                    action: more-info
+              - type: glance
+                entities:
+                  - entity: light.bookcase_candles
+                    icon: hass:candle
+                    name: Candles
+                show_state: false
+                columns: 1
+          - type: custom:multiple-entity-row
+            entities:
+              - entity: sensor.wall_panel_light_sensor
+                name: Kitchen N
+              - entity: sensor.kitchen_sensor_light_level
+                name: Kitchen S
+              - entity: sensor.moto_g_7_play_light_sensor
+                name: Family room
+              - entity: sensor.penpen_light_sensor
+                name: Master Bedroom
+            entity: weather.kgtu_hourly
+            name: LUX
+            icon: hass:sensor
+            show_header_toggle: false
+      - type: vertical-stack
+        cards:
+          - type: vertical-stack
+            cards:
+              - type: custom:text-divider-row
+                text: Family room & Kitchen
+              - type: horizontal-stack
+                cards:
+                  - type: custom:slider-button-card
+                    entity: light.family_room_table_lamp_n
+                    name: Steve
+                    compact: false
+                    show_state: false
+                    action_button:
+                      mode: toggle
+                    slider:
+                      attribute: brightness
+                      direction: left-right
+                      background: gradient
+                    icon:
+                      icon: mdi:lamp
+                      use_state_color: true
+                      tap_action:
+                        action: more-info
+                  - type: custom:slider-button-card
+                    entity: light.family_room_ceiling
+                    name: Ceiling
+                    compact: false
+                    show_state: false
+                    action_button:
+                      mode: toggle
+                    slider:
+                      attribute: brightness
+                      direction: left-right
+                      background: gradient
+                    icon:
+                      icon: mdi:ceiling-fan-light
+                      use_state_color: true
+                      tap_action:
+                        action: more-info
+                  - type: custom:slider-button-card
+                    entity: light.bookcase_light_group
+                    name: Bookcase
+                    compact: false
+                    show_state: false
+                    action_button:
+                      mode: toggle
+                    slider:
+                      attribute: brightness
+                      direction: left-right
+                      background: gradient
+                    icon:
+                      icon: mdi:bookshelf
+                      use_state_color: true
+                      tap_action:
+                        action: more-info
+                  - type: custom:slider-button-card
+                    entity: light.family_room_table_lamp_s
+                    compact: false
+                    show_state: false
+                    action_button:
+                      mode: toggle
+                    slider:
+                      attribute: brightness
+                      direction: left-right
+                      background: gradient
+                    icon:
+                      icon: hue:table-shade
+                      use_state_color: true
+                      tap_action:
+                        action: more-info
+                    name: Laura
+              - type: horizontal-stack
+                cards:
+                  - type: custom:slider-button-card
+                    entity: light.kitchen_table_dimmer
+                    name: Eating area
+                    compact: false
+                    show_state: false
+                    action_button:
+                      mode: toggle
+                    slider:
+                      attribute: brightness
+                      direction: left-right
+                      background: gradient
+                    icon:
+                      icon: hue:room-dining
+                      use_state_color: true
+                      tap_action:
+                        action: more-info
+                  - type: custom:slider-button-card
+                    entity: light.kitchen_counter_leds
+                    name: Counter
+                    compact: false
+                    show_state: false
+                    action_button:
+                      mode: toggle
+                    slider:
+                      attribute: brightness
+                      direction: left-right
+                      background: gradient
+                    icon:
+                      icon: mdi:wall-sconce-flat
+                      use_state_color: true
+                      tap_action:
+                        action: more-info
+                  - type: custom:slider-button-card
+                    entity: light.kitchen_cabinet_leds_2ya
+                    name: Cabinets
+                    compact: false
+                    show_state: false
+                    action_button:
+                      mode: toggle
+                      icon: mdi:wall-sconce-flat-variant-outline
+                      show_state: true
+                      tap_action:
+                        action: call-service
+                        service: light.toggle
+                        service_data:
+                          entity_id: light.feit_strip_leds
+                    slider:
+                      attribute: brightness
+                      direction: left-right
+                      background: gradient
+                    icon:
+                      show: true
+                      icon: mdi:wall-sconce-flat-variant-outline
+                      use_state_color: false
+                      tap_action:
+                        action: more-info
+                  - type: custom:slider-button-card
+                    entity: light.kitchen_ceiling_lights_group
+                    name: Ceiling
+                    compact: false
+                    show_state: false
+                    action_button:
+                      mode: toggle
+                    slider:
+                      attribute: brightness
+                      direction: left-right
+                      background: gradient
+                    icon:
+                      icon: hass:light-recessed
+                      use_state_color: true
+                      tap_action:
+                        action: more-info
+                      show: true
+          - type: vertical-stack
+            cards:
+              - type: sensor
+                detail: 2
+                entity: sensor.wall_panel_light_sensor
+                graph: line
+                icon: hass:brightness-4
+                name: light level
+              - type: history-graph
+                entities:
+                  - entity: weather.pirateweather
+                    name: ' '
+                refresh_interval: 0
+                title: ' '
+                hours_to_show: 24
+          - type: custom:multiple-entity-row
+            entities:
+              - entity: switch.adaptive_color_temp
+                name: color
+              - entity: switch.adaptive_brightness_temp
+                name: brightness
+              - entity: switch.adaptive_sleep_mode_temp
+                name: sleep
+            entity: switch.adaptive_temp
+            name: Adaptive
+            show_header_toggle: false
+  - icon: hass:speaker-wireless
+    title: Sound settings
+    path: sound
+    badges: []
+    cards:
+      - type: vertical-stack
+        cards:
+          - type: horizontal-stack
+            cards:
+              - type: custom:clock-card
+                disable_seconds: true
+                size: 110
+                time_zone: America/Chicago
+              - type: gauge
+                entity: sensor.onkyo_volume
+                name: ' '
+                min: 0
+                max: 80
+                severity:
+                  green: 0
+                  yellow: 25
+                  red: 50
+                needle: true
+              - type: custom:button-card
+                entity: binary_sensor.garage_door_sensor
+                icon: hass:garage
+                name: Garage is
+                show_state: true
+                state:
+                  - value: 'off'
+                    color: green
+                    icon: hass:garage-variant
+                  - value: 'on'
+                    color: orange
+                    icon: hass:garage-alert-variant
+                styles:
+                  card:
+                    - width: 110px
+                    - height: 120px
+          - type: horizontal-stack
+            cards:
+              - type: button
+                entity: media_player.onkyo
+                name: AVR
+                icon: mdi:audio-video
+                show_state: false
+                tap_action:
+                  action: call-service
+                  service: switch.toggle
+                  service_data:
+                    entity_id: switch.listen_to_music
+              - type: button
+                entity: switch.office_harmony_aiwa_audio
+                name: Aiwa
+                icon: hass:speaker
+              - type: button
+                entity: switch.bathrooms_pyle
+                name: rooms
+                icon: hass:paper-roll-outline
+              - type: button
+                entity: switch.porch_pyle
+                name: porch
+                icon: hass:tree-outline
+              - type: button
+                entity: script.mute_all
+                name: mute
+                icon: hass:volume-mute
+                show_state: false
+                tap_action:
+                  action: call-service
+                  service: script.toggle
+                  service_data:
+                    entity_id: script.mute_all
+              - type: button
+                entity: remote.bookcase
+                icon: hass:circle-off-outline
+                name: all off
+                tap_action:
+                  action: call-service
+                  service: script.turn_off_all_media_devices
+          - type: vertical-stack
+            cards:
+              - type: custom:mini-media-player
+                name: AV Receiver
+                icon: hass:audio-video
+                tap_action:
+                  action: more-info
+                group: true
+                hide:
+                  controls: true
+                  icon_state: false
+                  power_state: false
+                  volume_level: false
+                max_volume: '80'
+                toggle_power: false
+                volume_stateless: false
+                volume_step: '1'
+                artwork: none
+                info: scroll
+                min_volume: '1'
+                shortcuts:
+                  columns: 4
+                  buttons:
+                    - type: script
+                      icon: hass:alpha-m
+                      id: script.onkyo_moode
+                    - type: script
+                      icon: hass:cast-audio
+                      id: script.onkyo_chromeaudio
+                    - type: script
+                      icon: hass:volume-minus
+                      id: script.onkyo_volume_down
+                    - type: script
+                      icon: hass:volume-plus
+                      id: script.onkyo_volume_up
+                scale: '1'
+                entity: media_player.onkyo
+                source: full
+              - type: custom:mini-media-player
+                name: Aiwa - Office sound
+                icon: hass:speaker
+                tap_action:
+                  action: script.aiwa_power_toggle
+                group: true
+                hide:
+                  name: false
+                  icon: false
+                  info: true
+                  power: false
+                  source: true
+                  sound_mode: true
+                  controls: true
+                  prev: false
+                  next: false
+                  play_pause: true
+                  volume: false
+                  volume_level: true
+                  progress: true
+                  runtime: true
+                  artwork_border: true
+                  power_state: false
+                  icon_state: false
+                  shuffle: true
+                  state_label: true
+                info: scroll
+                volume_stateless: true
+                toggle_power: false
+                shortcuts:
+                  columns: 4
+                  buttons:
+                    - type: script
+                      icon: hass:volume-mute
+                      name: null
+                      id: script.aiwa_pause
+                    - type: script
+                      icon: hass:play
+                      name: null
+                      id: script.aiwa_play
+                    - type: script
+                      icon: hass:alpha-t-box-outline
+                      name: bass
+                      id: script.aiwa_t_bass
+                    - type: script
+                      icon: hass:music-clef-bass
+                      name: equal
+                      entity: script.aiwa_eq_bass_up
+                artwork: none
+                sound_mode: icon
+                replace_mute: stop
+                entity: media_player.aiwa
+                source: icon
+              - type: custom:mini-media-player
+                icon: hass:alpha-m
+                name: moOde
+                group: true
+                hide:
+                  controls: false
+                  volume_level: false
+                  mute: true
+                  icon_state: false
+                  power: false
+                  power_state: false
+                volume_stateless: false
+                volume_step: '5'
+                info: scroll
+                toggle_power: false
+                columns: 1
+                artwork: none
+                source: full
+                sound_mode: full
+                replace_mute: play_pause
+                entity: media_player.moode
+              - type: custom:mini-media-player
+                hide:
+                  controls: false
+                  volume_level: false
+                  mute: false
+                  icon_state: false
+                  power: false
+                  power_state: false
+                volume_stateless: false
+                group: true
+                source: full
+                info: scroll
+                replace_mute: play_pause
+                entity: media_player.chromeaudio
+                artwork: cover-fit
+      - type: vertical-stack
+        cards:
+          - type: iframe
+            aspect_ratio: 120%
+            url: http://192.168.1.125
+  - icon: hass:desk
+    title: Office
+    path: office
+    badges: []
+    cards:
+      - type: vertical-stack
+        cards:
+          - type: horizontal-stack
+            cards:
+              - type: custom:clock-card
+                disable_seconds: true
+                size: 80
+                time_zone: America/Chicago
+              - type: custom:button-card
+                entity: script.harmony_sync_office_hub
+                name: Harmony
+                icon: mdi:sync
+                styles:
+                  card:
+                    - width: 90px
+                    - height: 90px
+              - type: custom:button-card
+                entity: switch.esp_bf0a14_desk_plug
+                name: Desk outlet
+                tap_action:
+                  action: toggle
+                show_state: false
+                hold_action:
+                  action: more-info
+                state:
+                  - value: 'on'
+                    color: green
+                    icon: hass:toggle-switch
+                  - value: 'off'
+                    color: orange
+                    icon: hass:toggle-switch-off
+                styles:
+                  card:
+                    - width: 90px
+                    - height: 90px
+              - type: custom:numberbox-card
+                entity: input_number.aqara_face
+                name: Magic cube
+                secondary_info: last-updated
+                unit: ' '
+                border: true
+                icon: mdi:cube-outline
+                icon_plus: mdi:arrow-expand-horizontal
+                icon_minus: mdi:arrow-expand-vertical
+          - type: custom:multiple-entity-row
+            entities:
+              - entity: binary_sensor.garage_door_sensor
+                name: magnet
+              - entity: binary_sensor.garage_door_myq_gateway
+                name: status
+            entity: cover.garage_door_myq
+            icon: hue:room_carport
+            name: Garage door state
+          - type: horizontal-stack
+            cards:
+              - type: button
+                entity: media_player.onkyo
+                name: AVR
+                icon: mdi:audio-video
+                show_state: false
+                tap_action:
+                  action: call-service
+                  service: switch.toggle
+                  service_data:
+                    entity_id: switch.listen_to_music
+              - type: button
+                entity: switch.office_harmony_aiwa_audio
+                name: Aiwa
+                icon: hass:speaker
+              - type: button
+                entity: switch.bathrooms_pyle
+                name: rooms
+                icon: hass:paper-roll-outline
+              - type: button
+                entity: switch.porch_pyle
+                name: porch
+                icon: hass:tree-outline
+              - type: button
+                entity: script.mute_all
+                name: mute
+                icon: hass:volume-mute
+                show_state: false
+                tap_action:
+                  action: call-service
+                  service: script.toggle
+                  service_data:
+                    entity_id: script.mute_all
+              - type: button
+                entity: remote.bookcase
+                icon: hass:circle-off-outline
+                name: all off
+                tap_action:
+                  action: call-service
+                  service: script.turn_off_all_media_devices
+          - type: vertical-stack
+            cards:
+              - type: custom:mini-media-player
+                name: Aiwa - Office sound
+                icon: hass:speaker
+                tap_action:
+                  action: script.aiwa_power_toggle
+                group: true
+                hide:
+                  info: false
+                  sound_mode: false
+                  controls: false
+                  prev: false
+                  next: false
+                  play_pause: false
+                  play_stop: false
+                  power_state: false
+                  icon_state: false
+                artwork: none
+                volume_stateless: true
+                shortcuts:
+                  columns: 3
+                  buttons:
+                    - type: script
+                      icon: hass:volume-mute
+                      name: null
+                      id: script.aiwa_toggle_mute
+                    - type: script
+                      icon: hass:volume-minus
+                      name: null
+                      id: script.aiwa_volume_down
+                    - type: script
+                      icon: hass:volume-plus
+                      name: null
+                      id: script.aiwa_volume_up
+                    - type: script
+                      icon: hass:alpha-t-box-outline
+                      name: bass
+                      id: script.aiwa_t_bass
+                    - type: script
+                      icon: hass:music-clef-bass
+                      name: equal
+                      entity: script.aiwa_eq_bass_up
+                entity: media_player.aiwa
+          - type: custom:mini-media-player
+            icon: hass:alpha-m
+            name: moOde
+            group: true
+            hide:
+              controls: false
+              volume_level: false
+              mute: false
+              icon_state: false
+              power: false
+              power_state: false
+            volume_stateless: true
+            volume_step: '5'
+            info: scroll
+            toggle_power: false
+            columns: 1
+            artwork: none
+            source: full
+            sound_mode: full
+            entity: media_player.moode
+          - type: sensor
+            graph: line
+            name: Steve's desk - 24 hrs
+            detail: 1
+            icon: hass:desk
+            hours_to_show: 24
+            entity: sensor.office_steve_socket_power
+      - type: vertical-stack
+        cards:
+          - type: iframe
+            url: http://192.168.1.125
+            aspect_ratio: 100%
+          - type: glance
+            entities:
+              - entity: light.office_floor_lamp_colorful
+                icon: hass:floor-lamp
+                name: Floor
+              - entity: light.office_reading
+                name: Reading
+                icon: hass:book-open-page-variant
+              - entity: light.steve_desk_lamp
+                name: Steve
+                icon: hue:desk-lamp
+              - entity: light.laura_desk_lamp
+                name: Laura
+                icon: hass:lamp
+            show_state: false
+            columns: 4
+  - icon: hass:sofa-outline
+    title: Family room
+    path: family_room
+    badges: []
+    cards:
+      - type: vertical-stack
+        cards:
+          - type: horizontal-stack
+            cards:
+              - type: custom:clock-card
+                disable_seconds: true
+                size: 90
+                time_zone: America/Chicago
+              - type: gauge
+                entity: sensor.onkyo_volume
+                name: ' '
+                min: 0
+                max: 80
+                needle: true
+                severity:
+                  green: 0
+                  yellow: 25
+                  red: 50
+              - type: custom:button-card
+                entity: script.scene_watch_movie
+                icon: null
+                name: TV lighting
+                show_state: true
+                styles:
+                  card:
+                    - height: 100px
+          - type: horizontal-stack
+            cards:
+              - type: button
+                entity: media_player.onkyo
+                name: AVR
+                icon: mdi:audio-video
+                show_state: false
+                tap_action:
+                  action: call-service
+                  service: switch.toggle
+                  service_data:
+                    entity_id: switch.listen_to_music
+              - type: button
+                entity: switch.office_harmony_aiwa_audio
+                name: Aiwa
+                icon: hass:speaker
+              - type: button
+                entity: switch.bathrooms_pyle
+                name: rooms
+                icon: hass:paper-roll-outline
+              - type: button
+                entity: switch.porch_pyle
+                name: porch
+                icon: hass:tree-outline
+              - type: button
+                entity: script.mute_all
+                name: mute
+                icon: hass:volume-mute
+                show_state: false
+                tap_action:
+                  action: call-service
+                  service: script.toggle
+                  service_data:
+                    entity_id: script.mute_all
+              - type: button
+                entity: remote.bookcase
+                icon: hass:circle-off-outline
+                name: all off
+                tap_action:
+                  action: call-service
+                  service: script.turn_off_all_media_devices
+          - type: vertical-stack
+            cards:
+              - type: custom:slider-button-card
+                entity: light.family_room_ceiling
+                name: Ceiling light
+                compact: true
+                show_state: false
+                action_button:
+                  mode: toggle
+                slider:
+                  attribute: brightness
+                  direction: left-right
+                  background: gradient
+                icon:
+                  icon: mdi:ceiling-fan-light
+                  use_state_color: true
+                  tap_action:
+                    action: more-info
+              - type: custom:slider-button-card
+                entity: light.bookcase_light_group
+                name: Bookcase
+                compact: true
+                show_state: false
+                action_button:
+                  mode: toggle
+                slider:
+                  attribute: brightness
+                  direction: left-right
+                  background: gradient
+                icon:
+                  icon: mdi:bookshelf
+                  use_state_color: true
+                  tap_action:
+                    action: more-info
+              - type: custom:slider-button-card
+                entity: light.family_room_table_lamp_s
+                name: South (Laura)
+                compact: true
+                show_state: false
+                action_button:
+                  mode: toggle
+                slider:
+                  attribute: brightness
+                  direction: left-right
+                  background: gradient
+                icon:
+                  icon: hue:table-shade
+                  use_state_color: true
+                  tap_action:
+                    action: more-info
+              - type: custom:slider-button-card
+                entity: light.family_room_table_lamp_n
+                name: North (Steve)
+                compact: true
+                show_state: false
+                action_button:
+                  mode: toggle
+                slider:
+                  attribute: brightness
+                  direction: left-right
+                  background: gradient
+                icon:
+                  icon: mdi:lamp
+                  use_state_color: true
+                  tap_action:
+                    action: more-info
+          - type: entities
+            entities:
+              - type: custom:fan-control-entity-row
+                entity: fan.family_room_control_level
+                name: Family room
+            show_header_toggle: false
+            title: ' '
+            state_color: false
+      - type: vertical-stack
+        cards:
+          - type: custom:mini-media-player
+            name: Google TV
+            icon: mdi:google
+            tap_action:
+              action: more-info
+            group: true
+            hide:
+              sound_mode: false
+              controls: false
+              play_stop: false
+              jump: false
+              volume: true
+              volume_level: false
+              runtime: false
+              power_state: false
+              icon_state: false
+            source: full
+            info: scroll
+            toggle_power: false
+            entity: media_player.chromecast_with_google_tv
+          - type: custom:mini-media-player
+            tap_action:
+              action: more-info
+            group: true
+            artwork: none
+            sound_mode: icon
+            hide:
+              name: false
+              icon: false
+              info: true
+              source: false
+              controls: true
+              power_state: false
+              volume: true
+              play_stop: true
+            source: full
+            info: scroll
+            shortcuts:
+              columns: 4
+              buttons:
+                - type: script
+                  icon: mdi:alpha-g-circle-outline
+                  id: script.harmony_google_tv
+                - type: script
+                  icon: mdi:television-classic
+                  id: script.harmony_broadcast_tv
+                - type: script
+                  icon: mdi:alpha-v-box-outline
+                  id: script.harmony_smartcast
+                - type: script
+                  icon: mdi:disc-player
+                  id: script.harmony_watch_dvd
+            name: Vizio
+            entity: media_player.vizio
+          - type: custom:mini-media-player
+            name: AV Receiver
+            icon: hass:audio-video
+            tap_action:
+              action: more-info
+            group: true
+            hide:
+              controls: true
+              icon_state: false
+              power_state: false
+              volume_level: false
+            max_volume: '80'
+            toggle_power: false
+            volume_stateless: false
+            volume_step: '1'
+            source: full
+            artwork: none
+            info: scroll
+            replace_mute: false
+            min_volume: '1'
+            shortcuts:
+              columns: 4
+              buttons:
+                - type: script
+                  icon: hass:alpha-m
+                  id: script.onkyo_moode
+                - type: script
+                  icon: hass:cast-audio
+                  id: script.onkyo_chromeaudio
+                - type: script
+                  icon: hass:volume-minus
+                  id: script.onkyo_volume_down
+                - type: script
+                  icon: hass:volume-plus
+                  id: script.onkyo_volume_up
+            scale: '1'
+            entity: media_player.onkyo
+          - type: media-control
+            entity: media_player.chromeaudio
+          - type: custom:mini-media-player
+            icon: hass:alpha-m
+            name: moOde
+            group: true
+            hide:
+              controls: false
+              volume_level: false
+              mute: true
+              icon_state: false
+              power: false
+              power_state: false
+            volume_stateless: true
+            volume_step: '5'
+            info: scroll
+            toggle_power: false
+            columns: 1
+            artwork: none
+            source: full
+            sound_mode: full
+            replace_mute: play_pause
+            entity: media_player.moode
+          - type: entities
+            entities:
+              - type: custom:fold-entity-row
+                head:
+                  type: section
+                  label: Kitchen
+                entities:
+                  - entity: light.kitchen_sink
+                    name: Sink
+                    icon: hass:countertop
+                    tap_action:
+                      action: toggle
+                  - entity: light.kitchen_ceiling_group
+                    name: Kitchen
+                    icon: hass:light-recessed
+                    tap_action:
+                      action: toggle
+                  - entity: light.kitchen_table_dimmer
+                    icon: hue:room-dining
+                    name: Eating area
+                    tap_action:
+                      action: toggle
+                  - entity: light.kitchen_counter_leds
+                    name: Counter
+                    icon: hass:wall-sconce-flat
+                    tap_action:
+                      action: toggle
+              - type: custom:fold-entity-row
+                head:
+                  type: section
+                  label: Other areas
+                entities:
+                  - entity: light.bookcase_light_group
+                    name: Bookcase
+                    icon: hass:bookshelf
+                    tap_action:
+                      action: toggle
+                  - entity: light.bay_window_dresser_lamp
+                    name: Dresser
+                    icon: hue:table-shade
+                  - entity: light.foyer_lamp
+                    name: Foyer
+                    icon: hue:room-hallway
+                    tap_action:
+                      action: toggle
+                  - entity: light.dining_room_dimmer
+                    name: Dining room
+                    icon: hass:dome-light
+                    tap_action:
+                      action: toggle
+                show_state: false
+          - type: media-control
+            entity: media_player.vizio
+  - title: Google remote
+    path: google-remote
+    icon: mdi:google
+    visible:
+      - user: 1f7cc35d0fbf4822920c4fcec126f77e
+      - user: 2ad8fea7aa7b41fea83c597460692919
+      - user: dafa377f9d3d4c34afcce1ec3f06086d
+    badges: []
+    cards:
+      - type: custom:mini-media-player
+        entity: media_player.vizio_smartcast
+        name: Vizio
+        group: true
+        volume_stateless: true
+        artwork: full-cover
+        source: full
+        sound_mode: full
+        info: scroll
+        shortcuts:
+          attribute:
+            - id: Netflix
+      - type: custom:harmony-card
+        entity: remote.bookcase
+        volume_entity: media_player.onkyo
+        show_activities_icons: true
+        hide_activities: false
+        scale: 1.5
+        activities:
+          - name: Google TV
+            device: Google ChromeCast TV
+            icon: mdi:google
+            volume_entity: media_player.onkyo
+            buttons:
+              dpad_center:
+                command: Select
+                icon: mdi:checkbox-blank-circle-outline
+                hide: false
+        buttons:
+          xbox:
+            command: Back
+            icon: mdi:arrow-left-top
+            hide: false
+          back:
+            command: Home
+            icon: mdi:home
+            hide: false
+            color: '#ffffff'
+          a:
+            command: YouTube TV
+            icon: mdi:youtube-tv
+            hide: false
+            color: '#f90400'
+          b:
+            command: Prime video
+            icon: si:amazon
+            hide: false
+            color: '#f1770f'
+          x:
+            command: Netflix
+            icon: mdi:netflix
+            hide: false
+            color: '#e20b13'
+          'y':
+            command: HBO
+            icon: si:hbo
+            hide: false
+            color: '#f1770f'
+      - type: custom:canvas-gauge-card
+        entity: sensor.room_temperature
+        name: Family room temperature
+        card_height: 60
+        shadow_height: 15%
+        font_size: 1em
+        gauge:
+          type: linear-gauge
+          width: 200
+          height: 100
+          borderShadowWidth: 0
+          borderOuterWidth: 0
+          borderMiddleWidth: 0
+          borderInnerWidth: 0
+          minValue: 50
+          maxValue: 100
+          valueBox: false
+          majorTicks:
+            - '50'
+            - '60'
+            - '70'
+            - '80'
+            - '90'
+            - '100'
+          minorTicks: 2
+          strokeTicks: true
+          highlights:
+            - from: 80
+              to: 100
+              color: rgba(200, 50, 50, .75)
+          borders: false
+  - icon: hass:home-thermometer-outline
+    path: status
+    title: Status
+    visible:
+      - user: dafa377f9d3d4c34afcce1ec3f06086d
+      - user: 1f7cc35d0fbf4822920c4fcec126f77e
+      - user: 2ad8fea7aa7b41fea83c597460692919
+    badges: []
+    cards:
+      - type: vertical-stack
+        cards:
+          - type: horizontal-stack
+            cards:
+              - type: custom:clock-card
+                disable_seconds: true
+                size: 80
+                time_zone: America/Chicago
+              - type: custom:button-card
+                entity: switch.utility_room_fan
+                name: Utility room
+                icon: hass:fan
+                show_state: true
+                state:
+                  - value: 'on'
+                    color: orange
+                  - value: 'off'
+                    color: green
+                styles:
+                  card:
+                    - width: 140px
+                    - height: 90px
+              - type: custom:button-card
+                entity: binary_sensor.garage_door_sensor
+                icon: hass:garage
+                name: Garage is
+                show_state: true
+                state:
+                  - value: 'off'
+                    color: green
+                    icon: hass:garage-variant
+                  - value: 'on'
+                    color: orange
+                    icon: hass:garage-alert-variant
+                styles:
+                  card:
+                    - width: 140px
+                    - height: 90px
+          - type: horizontal-stack
+            cards:
+              - type: button
+                entity: media_player.onkyo
+                name: AVR
+                icon: mdi:audio-video
+                show_state: false
+                tap_action:
+                  action: call-service
+                  service: switch.toggle
+                  service_data:
+                    entity_id: switch.listen_to_music
+              - type: button
+                entity: switch.office_harmony_aiwa_audio
+                name: Aiwa
+                icon: hass:speaker
+              - type: button
+                entity: switch.bathrooms_pyle
+                name: rooms
+                icon: hass:paper-roll-outline
+              - type: button
+                entity: switch.porch_pyle
+                name: porch
+                icon: hass:tree-outline
+              - type: button
+                entity: script.mute_all
+                name: mute
+                icon: hass:volume-mute
+                show_state: false
+                tap_action:
+                  action: call-service
+                  service: script.toggle
+                  service_data:
+                    entity_id: script.mute_all
+              - type: button
+                entity: remote.bookcase
+                icon: hass:circle-off-outline
+                name: all off
+                tap_action:
+                  action: call-service
+                  service: script.turn_off_all_media_devices
+          - type: vertical-stack
+            cards:
+              - type: custom:text-divider-row
+                text: Brother printer
+              - type: custom:bar-card
+                direction: up
+                entities:
+                  - color: black
+                    entity: sensor.office_printer_black_ink_remaining
+                    name: Black
+                  - color: cyan
+                    entity: sensor.office_printer_cyan_ink_remaining
+                    name: Cyan
+                  - color: magenta
+                    entity: sensor.office_printer_magenta_ink_remaining
+                    name: Magenta
+                  - color: yellow
+                    entity: sensor.office_printer_yellow_ink_remaining
+                    name: Yellow
+                height: 150px
+                positions:
+                  icon: 'off'
+                  indicator: inside
+                  value: outside
+                stack: horizontal
+                width: 60%
+          - type: custom:multiple-entity-row
+            entities:
+              - entity: sensor.dryer_temperature
+                name: temp
+              - entity: sensor.dryer_humidity
+                name: humidity
+            entity: input_boolean.dryer
+            name: Dryer
+            icon: hass:tumble-dryer
+            show_header_toggle: false
+          - type: sensor
+            entity: sensor.dryer_temperature
+            name: Dryer
+            graph: line
+            icon: hass:tumble-dryer
+            detail: 2
+            hours_to_show: 4
+          - type: entities
+            entities:
+              - type: custom:fan-control-entity-row
+                entity: fan.guest_bedroom
+                name: Guest bedroom
+                icon: hass:ceiling-fan
+            show_header_toggle: false
+            title: Guest bedroom fan
+      - type: vertical-stack
+        cards:
+          - type: sensor
+            entity: sensor.processor_temperature
+            name: HA RPi - 24 hrs
+            graph: line
+            detail: 2
+            hours_to_show: 24
+          - type: vertical-stack
+            cards:
+              - type: custom:multiple-entity-row
+                entities:
+                  - entity: sensor.c929_current_temp
+                    name: current temp
+                  - entity: sensor.c929_mode
+                    name: mode
+                entity: binary_sensor.c929_fan
+                name: Attic fan
+                icon: hue:room-attic
+                show_header_toggle: false
+              - type: custom:multiple-entity-row
+                entities:
+                  - entity: sensor.wall_panel_battery_temperature
+                    name: temp
+                    unit: °C
+                  - entity: sensor.wall_panel_battery_level
+                    name: level
+                entity: sensor.wall_panel_battery_state
+                name: Wall panel
+                icon: mdi:fullscreen
+                show_header_toggle: false
+              - type: custom:multiple-entity-row
+                entities:
+                  - entity: sensor.zero_dht_humidity
+                    name: humidity
+                entity: sensor.zero_dht_temperature
+                name: Kitchen
+                icon: mdi:thermometer
+                show_header_toggle: false
+          - type: custom:mini-graph-card
+            entities:
+              - entity: sensor.c929_current_temp
+                name: current
+                show_indicator: true
+                show_state: true
+              - entity: sensor.c929_high_t2
+                name: T2
+                show_indicator: false
+                show_state: true
+              - entity: sensor.c929_low_t1
+                name: T1
+                show_indicator: false
+                show_state: true
+            show:
+              extrema: false
+              fill: false
+              labels: true
+            icon: mdi:thermometer
+            name: Office closet - 3 days
+            graph: line
+            hours_to_show: 72
+          - type: custom:multiple-entity-row
+            entities:
+              - entity: sensor.washing_machine_plug_current
+                name: current
+              - entity: sensor.washing_machine_plug_power
+                name: power
+            entity: input_boolean.washing_machine
+            name: Washing machine
+            icon: hass:washing-machine
+            show_header_toggle: false
+          - type: entities
+            entities:
+              - type: custom:fan-control-entity-row
+                entity: fan.family_room_control_level
+                name: Family room
+            show_header_toggle: false
+            title: ' '
+  - theme: Backend-selected
+    title: Energy
+    path: power
+    icon: hass:power-plug-outline
+    type: sidebar
+    visible:
+      - user: 1f7cc35d0fbf4822920c4fcec126f77e
+      - user: 2ad8fea7aa7b41fea83c597460692919
+      - user: dafa377f9d3d4c34afcce1ec3f06086d
+    badges: []
+    cards:
+      - type: vertical-stack
+        cards:
+          - type: horizontal-stack
+            cards:
+              - type: custom:clock-card
+                disable_seconds: true
+                size: 80
+                time_zone: America/Chicago
+              - type: custom:button-card
+                entity: script.harmony_sync_bookcase_hub
+                name: sync Bookcase Harmony
+                icon: mdi:bookshelf
+                styles:
+                  card:
+                    - width: 200px
+                    - height: 90px
+              - type: custom:button-card
+                entity: script.harmony_sync_office_hub
+                name: sync Office Harmony
+                icon: mdi:desk
+                styles:
+                  card:
+                    - width: 160px
+                    - height: 90px
+              - type: custom:button-card
+                entity: switch.bookcase_onkyo_reset
+                name: Reset AVR
+                tap_action:
+                  action: more-info
+                icon: hass:power
+                show_state: false
+                state:
+                  - value: 'on'
+                    color: green
+                    icon: hass:toggle-switch
+                  - value: 'off'
+                    color: orange
+                    icon: hass:toggle-switch-off
+                styles:
+                  card:
+                    - width: 110px
+                    - height: 90px
+              - type: custom:button-card
+                entity: cover.garage_door_myq
+                icon: hass:garage
+                name: MyQ garage
+                show_state: true
+                state:
+                  - value: closed
+                    color: green
+                    icon: hass:garage-variant
+                  - value: open
+                    color: orange
+                    icon: hass:garage-alert-variant
+                styles:
+                  card:
+                    - width: 110px
+                    - height: 90px
+          - type: custom:text-divider-row
+            text: Don't mess with the above unless you know what you're doing!
+          - type: horizontal-stack
+            cards:
+              - type: button
+                entity: media_player.onkyo
+                name: AVR
+                icon: mdi:audio-video
+                show_state: false
+                tap_action:
+                  action: call-service
+                  service: switch.toggle
+                  service_data:
+                    entity_id: switch.listen_to_music
+              - type: button
+                entity: switch.office_harmony_aiwa_audio
+                name: Aiwa
+                icon: hass:speaker
+              - type: button
+                entity: switch.bathrooms_pyle
+                name: rooms
+                icon: hass:paper-roll-outline
+              - type: button
+                entity: switch.porch_pyle
+                name: porch
+                icon: hass:tree-outline
+              - type: button
+                entity: script.mute_all
+                name: mute
+                icon: hass:volume-mute
+                show_state: false
+                tap_action:
+                  action: call-service
+                  service: script.toggle
+                  service_data:
+                    entity_id: script.mute_all
+              - type: button
+                entity: remote.bookcase
+                icon: hass:circle-off-outline
+                name: all off
+                tap_action:
+                  action: call-service
+                  service: script.turn_off_all_media_devices
+      - type: custom:battery-state-card
+        sort_by_level: asc
+        color_gradient:
+          - '#ff0000'
+          - '#ffff00'
+          - '#00ff00'
+        entities:
+          - entity: sensor.family_room_end_table_remote_n_battery_level
+            name: Steve's N remote (Family room)
+          - entity: sensor.family_room_end_table_remote_s_battery_level
+            name: Laura's S remote (Family room)
+          - entity: sensor.lights_off_toggle_battery_level
+            name: All lights off (Bedroom)
+          - entity: sensor.aiwa_shortcut_button_battery_level
+            name: Aiwa on/off/toggle (Office)
+          - entity: sensor.aqara_magic_cube_battery_level
+            name: Aqara magic cube (Office)
+          - entity: sensor.asus_flip_battery_level
+            name: Asus Flip (Bedroom)
+            charging_state:
+              entity_id: binary_sensor.asus_flip_is_charging
+              state: 'on'
+          - entity: sensor.steev_battery_level
+            name: Steve's phone
+            charging_state:
+              entity_id: binary_sensor.steev_is_charging
+              state: 'on'
+          - entity: sensor.penpen_battery_level
+            name: Vizio remote (PenPen)
+            charging_state:
+              entity_id: binary_sensor.penpen_is_charging
+              state: 'on'
+          - entity: sensor.vizio_remote_old_moto_battery_level
+            name: Moto G5 (bedside)
+            charging_state:
+              entity_id: binary_sensor.vizio_remote_old_moto_is_charging
+              state: 'on'
+          - entity: sensor.moto_g_7_play_battery_level
+            name: Moto G7 (Olive)
+            charging_state:
+              entity_id: binary_sensor.moto_g_7_play_is_charging
+              state: 'on'
+        view_layout:
+          position: sidebar
+      - type: sensor
+        entity: sensor.washing_machine_plug_power
+        icon: hass:washing-machine
+        name: Washing machine - 8 hours
+        detail: 2
+        hours_to_show: 24
+        graph: line
+        view_layout:
+          position: sidebar
+      - type: sensor
+        entity: sensor.office_steve_socket_power
+        graph: line
+        icon: hass:desk
+        detail: 2
+        hours_to_show: 72
+        name: Steve's desk - 3 days
+        view_layout:
+          position: main
+      - type: energy-devices-graph
+        entity: sensor.office_steve
+        view_layout:
+          position: sidebar
+      - type: entity
+        entity: sensor.wave_switch
+        view_layout:
+          position: sidebar
+      - type: custom:button-card
+        color_type: blank-card
+        view_layout:
+          position: sidebar
+      - type: sensor
+        graph: line
+        icon: mdi:lightning-bolt-circle
+        detail: 2
+        name: SMT hourly
+        view_layout:
+          position: main
+        entity: sensor.smt_energy_hourly
+        hours_to_show: 24
+  - theme: Backend-selected
+    title: gateway
+    path: gateway
+    icon: mdi:network-outline
+    type: panel
+    visible:
+      - user: 1f7cc35d0fbf4822920c4fcec126f77e
+      - user: 2ad8fea7aa7b41fea83c597460692919
+      - user: dafa377f9d3d4c34afcce1ec3f06086d
+    badges: []
+    cards:
+      - type: markdown
+        content: >
+          ## Device IPs
+
+          | Device IP     | MAC Address       | Device name                    
+          | Hostname            | Vendor                              | HA
+          Device ID                              |
+
+          |---------------|-------------------|---------------------------------|---------------------|-------------------------------------|-------------------------------------------|
+
+          | 192.168.1.11  | 00:08:9B:F2:B3:28 | QNAP TS-251+                   
+          | unknown00089bf2b328 | ICP Electronics                     |
+          <none>                                    |
+
+          | 192.168.1.22  | DC:A6:32:69:38:8B | Home Assistant OS |
+          unknowndca63269388b | Raspberry Pi Trading                |
+          a6402ade2cc7245739405b28fadccfbe          |
+
+          | 192.168.1.66  | 00:1B:A9:E5:43:95 | MFC-J4710DW                    
+          | BRN001BA9E54395     | Brother industries                  |
+          bb22c097c07938a50aaa0f3c005230ee          |
+
+          | 192.168.1.73  | 20:02:AF:EE:CB:D5 | Thermostat 1                   
+          | XL824-1410880       | Murata Manufacturing                |
+          d084fd0afcfaece77d6724d82cb375f9          |
+
+          | 192.168.1.79  | 00:09:B0:D5:64:54 | Onkyo TX-NR525                 
+          | unknown0009b0d56454 | Onkyo                               |
+          uuid:d4b06d81-546d-81b9-b164-810954b95de4 |
+
+          | 192.168.1.85  | 00:04:20:F8:D0:25 | Office                         
+          | HarmonyHub          | Slim Devices                        |
+          2aeb746d77fd699b6aaf8547bd314b87          |
+
+          | 192.168.1.91  | B4:EC:02:ED:F6:60 | Nissan Rogue 2019              
+          | MYCAR               | Nissan                              |
+          <none>                                    |
+
+          | 192.168.1.97  | 5C:E0:C5:BF:CA:5C | Acer Aspire Switch             
+          | Acer                | Intel Corporate                     |
+          <none>                                    |
+
+          | 192.168.1.113 | 00:17:88:2B:79:C6 | Philips bridge                 
+          | Philips-bridge      | Philips Lighting BV                 |
+          88c7120053fef2db6555092ceed48682          |
+
+          | 192.168.1.124 | A4:77:33:FB:3C:0A | Chromecast Audio               
+          | Chromecast-Audio    | Google                              |
+          d998eeeccd0bc88bd6448f60153226cc          |
+
+          | 192.168.1.125 | B8:27:EB:D4:B3:2E | Raspberry Pi 3B+               |
+          moOdeS                | Raspberry Pi Trading                |
+          <none>                                    |
+
+          | 192.168.1.128 | 52:54:00:00:a3:84 | Home Assistant (VM)            
+          | homeassistant       | Nabu Casa                           | <not in
+          HA>                               |
+
+          | 192.168.1.131 | B8:27:EB:DF:A5:6A | Raspberry Pi 4B                
+          | Companion             | Raspberry Pi Trading                |
+          <none>                                    |
+
+          | 192.168.1.132 | FC:AE:34:2A:84:42 | Arris Gateway/Router           
+          | <unknown>           | Arris Group                         | <not in
+          HA>                               |
+
+          | 192.168.1.136 | B8:27:EB:61:82:78 | Raspberry Pi Zero              
+          | Zero                | Raspberry Pi Trading                | <not in
+          HA>                               |
+
+          | 192.168.1.142 | BC:85:56:58:06:A7 | Acer Aspire laptop             
+          | Aspire-V5           | Hon Hai Precision Ind.              |
+          <none>                                    |
+
+          | 192.168.1.153 | D0:E7:82:C5:D3:2D | Google Chromecast (1st Gen)    
+          | Chromecast          | AzureWave Technology                |
+          bcdce7102e3f9a4eace5003df6e5dc74          |
+
+          | 192.168.1.158 | C8:DB:26:06:07:7B | Bookcase                       
+          | HarmonyHub          | Logitech                            |
+          9279fefe9c456095c853c3ef44547137          |
+
+          | 192.168.1.162 | 64:1C:AE:81:A0:31 | Samsung Blu-ray disc player    
+          | unknown641cae81a031 | Samsung Electronics                 | <not in
+          HA>                               |
+
+          | 192.168.1.166 | DC:4F:22:BF:0A:14 | ESP_BF0A14                     
+          | ESP_BF0A14          | Espressif                           |
+          979acfe8aa73900d917174e0be152da4          |
+
+          | 192.168.1.168 | 10:D5:61:62:1C:D2 | FEIT Strip LEDs                
+          | wlan0               | Tuya Smart                          |
+          b956221cd7c05c0e0742b49eff0acc06          |
+
+          | 192.168.1.169 | 0C:8B:7D:52:9D:49 | Vizio                          
+          | unknown0c8b7d529d49 | Vizio                               |
+          24f2e567dd19437cad502197d342d025          |
+
+          | 192.168.1.172 | F4:D1:08:97:39:ED | VH           |
+          unknownf4d1089739ed | Intel Corporate                     |
+          <none>                                    |
+
+          | 192.168.1.178 | 40:9F:38:02:55:DB | ASUS Chromebook                
+          | unknown409f380255db | AzureWave Technology                | <not in
+          HA>                               |
+
+          | 192.168.1.181 | 1C:30:08:21:C6:F9 | Hisense HDTV                   
+          | RokuTV              | Hui Zhou Gaoshengda Technology      | <not in
+          HA>                               |
+
+          | 192.168.1.182 | B8:27:EB:DB:21:E7 | Raspberry Pi 2B                |
+          DHT                   | Raspberry Pi Trading                |
+          <none>                                    |
+
+          | 192.168.1.183 | B8:27:EB:DF:A5:6A | Raspberry Pi 4B                
+          | CompanionIp  | Raspberry Pi Trading                |
+          <none>                                    |
+
+          | 192.168.1.188 | AC:63:BE:ED:ED:0B | Amazon Fire HD 7 Blue          
+          | amazon-65db6ad15    | Amazon Technologies                 |
+          <none>                                    |
+
+          | 192.168.1.191 | A0:CC:2B:90:4D:94 | Samsung Galaxy S8              
+          | PenPen              | Murata Manufacturing                | <not in
+          HA>                               |
+
+          | 192.168.1.192 | C0:8C:71:18:BF:91 | moto g(7) play                 
+          | unknownc08c7118bf91 | Motorola Mobility/Lenovo           |
+          26c138e50c7a2138efa14730778cc6ca          |
+
+          | 192.168.1.195 | DC:A6:32:2D:A8:27 | Raspberry Pi 4B                
+          | moOdeS              | Raspberry Pi Trading                |
+          <none>                                    |
+
+          | 192.168.1.197 | D8:8C:79:1D:48:34 | google tv                      
+          | unknownd88c791d4834 | Google                              |
+          ba60765c326c928d9780fd05cb627355          |
+
+          | 192.168.1.200 | 94:C6:91:15:08:E1 | Intel NUC 7th Gen              
+          | RudyNUC             | EliteGroup Computer Systems         |
+          <none>                                    |
+
+          | 192.168.1.201 | C8:F7:50:FB:B5:BB | Dell Optiplex 5070             
+          | Opt57               | Intel Corporate                     |
+          <none>                                    |
+
+          | 192.168.1.202 | 64:52:99:AB:FA:13 | Garage Door                    
+          | MyQ-38A             | The Chamberlain Group               |
+          818e544035b4b38248eaf8fac7233fbd          |
+
+          | 192.168.1.203 | 70:4F:57:04:32:C0 | Office floor lamp (Colorful)   
+          | LB130               | Tp-link Technologies                |
+          a9fa39d4a4dd3b9689636a55f80b887d          |
+
+          | 192.168.1.204 | 70:89:76:19:79:75 | BNC-60 Switch (Tuya)           
+          | wlan0               | Tuya Smart                          |
+          95f48d5fe84a1cc9f3aabd792d53974c          |
+
+          | 192.168.1.205 | DC:4F:22:E4:80:10 | Sonoff/Tasmota switch          
+          | SonoffSCandle       | Espressif                           |
+          <none>                                    |
+
+          | 192.168.1.206 | DC:4F:22:E5:5A:2D | Sonoff/Tasmota switch          
+          | SonoffNCandle       | Espressif                           |
+          <none>                                    |
+
+          | 192.168.1.207 | 3C:61:05:86:5A:BA | Kitchen table dimmer           
+          | ESP_865ABA          | Espressif                           |
+          190e93fb4c59adc175099957aca4b3b3          |
+
+          | 192.168.1.208 | 3C:61:05:86:62:E5 | Dining room dimmer             
+          | ESP_8662E5          | Espressif                           |
+          b75b94e76071c2d0fac2a7ff2fbf219c          |
+
+          | 192.168.1.209 | 70:89:76:23:52:9D | Washing machine plug           
+          | wlan0-64            | Tuya Smart                          |
+          c13d1501e2c8406b60ce85259b04849e          |
+
+          | 192.168.1.210 | 84:F3:EB:78:E0:B2 | Inkbird C929                   
+          | ESP_78E0B2          | Espressif                           |
+          218a4d8091b486cb1176fccdf1fa1704          |
+
+          | 192.168.1.211 | DC:4F:22:2A:50:11 | Kitchen under cabinet LEDs     
+          | ESP_2A5011          | Espressif                           |
+          40ced4c4586a7539b32d1255e3a62a8d          |
+
+          | 192.168.1.212 | 24:62:AB:36:20:14 | BNC-60 Switch (Tuya)           
+          | ESP_362014          | Espressif                           | <not in
+          HA>                               |
+
+          | 192.168.1.213 | AC:84:C6:A9:B7:0F | Utility room fan               
+          | HS200               | Tp-link Technologies                |
+          8d20f77d9646a2f2af5ea23bcf80a28d          |
+
+          | 192.168.1.216 | D4:63:C6:3F:E0:A5 | Steev                          
+          | unknownd463c63fe0a5 | Motorola Mobility/Lenovo |
+          96a2d6d13390b607bd8b64b0117b597f          |
+
+          | 192.168.1.219 | 02:00:00:EC:A3:F4 | QNAP virtual machine           
+          | ubuntu2004          | Unknown                             | <not in
+          HA>                               |
+
+          | 192.168.1.229 | DC:A6:32:2D:A8:26 | Raspberry Pi 4B                
+          | moOdeS              | Raspberry Pi Trading                |
+          <none>                                    |
+
+          | 192.168.1.230 | D8:F1:5B:F2:81:F1 | garage-door-sensor             
+          | unknownd8f15bf281f1 | Espressif                           |
+          13e1d80eedb51234c1c0603b9b4e8d98          |
+
+          | 192.168.1.233 | 10:52:1C:69:24:AC | dryer-temp                     
+          | unknown10521c6924ac | Espressif                           |
+          520de2162d3db1325b42bd06ecdc232a          |
+
+          | 192.168.1.236 | 00:05:1b:a2:93:2d | 1GB Ethernet (USB-3)           
+          | WIN-KKS6IG38MV9     | j5create                            |
+          <none>                                    |
+
+          | 192.168.1.238 | BC:76:5E:0B:43:4F | Wall panel                     
+          | Galaxy-Tab-A        | Samsung Electronics                 |
+          a4f3daea3a6da5e38e809a26acfba76c          |
+
+          | 192.168.1.246 | 00:0F:60:04:08:60 | Raspberry Pi 2B/CanaKit USB    |
+          DHT                   | Raspberry Pi Trading                |
+          <none>                                    |
+
+          | 192.168.1.249 | 9A:24:78:C2:4F:08 | Apple SE 2020                  
+          | Lauras-iPhone       | Unknown                             |
+          <none>                                    |
+
+          | 192.168.1.251 | E4:B3:18:71:9A:8A | Dell Latitude 7370             
+          | UltraDell           | Intel Corporate                     |
+          <none>                                    |
+
+          | 192.168.1.252 | 88:41:FC:CD:9B:8D | AirTies mesh                   
+          | ATT_4920_CD9B8D     | AirTies Wireless Networks           |
+          <none>                                    |
+
+          | 192.168.1.253 | 88:41:FC:F0:46:BB | AirTies mesh                   
+          | ATT_4920_F046BB     | AirTies Wireless Networks           |
+          <none>                                    |
+
+          | 192.168.1.254 | FC:AE:34:2A:84:40 | Arris Gateway/Router           
+          | dsldevice           | Arris Group                         | <not in
+          HA>                               |
+
+          | 192.168.1.999 | 2C:64:1F:C0:60:E0 | Vizio (Wi-Fi)                  
+          | unknown2c641fc060e0 | Vizio                               |
+          24f2e567dd19437cad502197d342d025          |
+  - theme: Backend-selected
+    title: ZHA
+    path: zha
+    icon: mdi:zigbee
+    visible:
+      - user: 1f7cc35d0fbf4822920c4fcec126f77e
+      - user: 2ad8fea7aa7b41fea83c597460692919
+      - user: dafa377f9d3d4c34afcce1ec3f06086d
+    type: panel
+    badges: []
+    cards:
+      - type: custom:zha-network-card
+        clickable: true
+        columns:
+          - name: Name
+            prop: name
+          - attr: available
+            id: available
+            modify: x || "false"
+            name: Online
+          - attr: manufacturer
+            name: Manufacturer
+          - attr: model
+            name: Model
+          - attr: ieee
+            name: IEEE
+          - name: NWK
+            prop: nwk
+          - attr: rssi
+            name: RSSI
+          - attr: lqi
+            name: LQI
+          - attr: last_seen
+            name: Last Seen
+          - attr: power_source
+            name: Power Source
+          - attr: quirk_class
+            name: Quirk
+        sort_by: available
