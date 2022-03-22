@@ -14,8 +14,10 @@
 # This is only valid if you install Node-RED as Home Assistant Add-on
 !node-red/
 
-# Uncomment this if you don't want to include secrets.yaml 
+# List of files you don't want to include
 secrets.yaml
+# shell_commands includes password used to CIFS mount media folders
+shell_commands.yaml
 
 # Ignore these files/folders
 .storage

@@ -14,3 +14,6 @@
   mount_nas_folder: mkdir -p /media/Music;mount -rv -t cifs -o user=bucko,password=s1ytotSOS-t5p,domain=WORKGROUP //192.168.1.11/Music /media/Music
 # these -o ptions appear in moOde mounts
 # mount -t cifs -rv -o user=bucko,password=s1ytotSOS-t5p,vers=2.0,ro,sec=ntlm,dir_mode=0777,file_mode=0777 //192.168.1.11/Music /media/Music
+
+# Trigger GitHub backup script
+  push_to_github: /config/ha22_gitpush.sh

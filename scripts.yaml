@@ -607,9 +607,7 @@ g:
 git_hub_ha22_gitpush:
   alias: 'GitHub: push config changes to GitHub'
   sequence:
-  - service: hassio.addon_stdin
-    data:
-      addon: a0d7b954_ssh
-      input: /config/ha22_gitpush.sh
+  - service: shell_command.push_to_github
+    data: {}
   mode: single
   icon: mdi:github
